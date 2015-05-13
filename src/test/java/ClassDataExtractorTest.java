@@ -3,6 +3,7 @@
  */
 
 import lang.ClassDataExtractor;
+import lang.InvalidClassfileException;
 import org.junit.Test;
 import util.StubLoader;
 import verily.lang.*;
@@ -16,8 +17,8 @@ import static org.junit.Assert.assertTrue;
 public class ClassDataExtractorTest {
 
     @Test
-    public void testExtractClass1() throws IOException {
+    public void testExtractClass1() throws IOException, InvalidClassfileException {
         ClassDataExtractor e = new ClassDataExtractor(StubLoader.loadStub("Test1.java"));
-        assertEquals("Test1", e.getName());
+        assertEquals("ESCRunner", e.getName());
     }
 }
