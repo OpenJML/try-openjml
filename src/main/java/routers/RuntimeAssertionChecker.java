@@ -4,18 +4,19 @@ import verily.lang.*;
 
 import java.util.HashMap;
 
-public class ExtendedStaticChecker{
+public class RuntimeAssertionChecker{
 
      public static final Content run(String Source, String result){
           return new TextContent(Source);
      }
 
-    public static final Content metadata(){
-        Content response = new JSONContent();
-        response.setContent(new TemplateHTMLContent("ExtendedStaticCheckerMetadata.ftl", new HashMap()).getContent());
+     public static final Content metadata(){
+         Content response = new JSONContent();
+         response.setContent(new TemplateHTMLContent("RuntimeAssertionCheckerMetadata.ftl", new HashMap()).getContent());
 
-        return response;
-    }
+         return response;
+
+     }
 
     public static final Content language(){
         Content response = new JSONContent();
