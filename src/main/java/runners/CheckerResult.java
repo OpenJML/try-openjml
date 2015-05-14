@@ -21,7 +21,33 @@ public class CheckerResult {
         return status;
     }
 
-    public String toJSON(){
-        return null;
+    public String toJSON() {
+
+        if (getStatus() == false) {
+            return String.format("{\"returnCode\": -2600, \"reason\"    : \"%s\", \"description\" : \"Internal failure before running OpenJML\"}", output.replaceAll("\"", "\\\""));
+        }
+
+        // try and find the json!
+        StringBuffer json = new StringBuffer();
+
+        boolean injson = false;
+        for (String line : output.split(System.getProperty("line.separator"))) {
+
+            if (line.startsWith("[verify-start]")) {
+                injson = true;
+                continue;
+            }
+
+            if (line.startsWith("[verify-end]")) {
+                injson = false;
+            }
+
+            if (injson) {
+                json.append(line);
+            }
+
+        }
+
+        return json.toString();
     }
 }

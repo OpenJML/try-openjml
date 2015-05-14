@@ -1,13 +1,19 @@
 package routers;
 
+import runners.CheckerResult;
 import verily.lang.*;
 
 import java.util.HashMap;
 
 public class RuntimeAssertionChecker{
 
-     public static final Content run(String Source, String result){
-          return new TextContent(Source);
+     public static final Content run(String Source, CheckerResult result){
+
+         Content response = new JSONContent();
+
+         response.setContent(result.toJSON());
+
+         return response;
      }
 
      public static final Content metadata(){

@@ -2,7 +2,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ESCRunner implements Runner {
+public class Test1 implements Runner {
 
 
 
