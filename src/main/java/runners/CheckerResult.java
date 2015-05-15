@@ -1,5 +1,8 @@
 package runners;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 /**
  * Created by jls on 5/13/2015.
  */
@@ -24,7 +27,14 @@ public class CheckerResult {
     public String toJSON() {
 
         if (getStatus() == false) {
-            return String.format("{\"returnCode\": -2600, \"reason\"    : \"%s\", \"description\" : \"Internal failure before running OpenJML\"}", output.replaceAll("\"", "\\\""));
+
+            JSONObject invalid = new JSONObject();
+
+            invalid.put("returnCode", -2600);
+            invalid.put("reason", output);
+            invalid.put("description", "Internal failure before running OpenJML");
+
+            return invalid.toJSONString();
         }
 
         // try and find the json!
@@ -48,6 +58,11 @@ public class CheckerResult {
 
         }
 
-        return json.toString();
+        JSONObject obj = (JSONObject) JSONValue.parse(json.toString());
+
+        obj.put("fullOutput", output);
+
+
+        return obj.toJSONString();
     }
 }

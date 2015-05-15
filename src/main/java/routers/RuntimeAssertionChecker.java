@@ -1,6 +1,7 @@
 package routers;
 
 import runners.CheckerResult;
+import runners.RACRunner;
 import verily.lang.*;
 
 import java.util.HashMap;
@@ -8,10 +9,9 @@ import java.util.HashMap;
 public class RuntimeAssertionChecker{
 
      public static final Content run(String Source, CheckerResult result){
-
          Content response = new JSONContent();
 
-         response.setContent(result.toJSON());
+         response.setContent(RACRunner.checkerResultToRise4RunFormat(result));
 
          return response;
      }

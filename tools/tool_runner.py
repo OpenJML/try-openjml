@@ -84,14 +84,14 @@ configuration = {
         'timeout'  : 'C:/tools/cygwin/bin/timeout',
         'classpath' : "{0};{1}".format(
             os.path.dirname(source_file),
-            os.path.join("openjml", "jmlruntime.jar")
+            os.path.join("tools", "openjml", "jmlruntime.jar")
         )
     },
     'posix'   : {
         'timeout'  : 'timeout',
         'classpath' : "{0}:{1}".format(
             os.path.dirname(source_file),
-            os.path.join("openjml", "jmlruntime.jar")
+            os.path.join("tools", "openjml", "jmlruntime.jar")
         )
     }
 }
@@ -100,7 +100,7 @@ timeout = configuration[os.name]['timeout']
 
 process_args = [timeout, "{0}s".format(args.timeout)]
 
-run_args  = []
+run_args  = [timeout, "{0}s".format(args.timeout)]
 
 #
 # OpenJML 
@@ -108,13 +108,13 @@ run_args  = []
 if args.esc:
     process_args.append("java")
     process_args.append("-jar")
-    process_args.append(os.path.join("openjml", "openjml.jar"))
+    process_args.append(os.path.join("tools", "openjml", "openjml.jar"))
     process_args.append("-esc")
     process_args.append(source_file)
 else:
     process_args.append("java")
     process_args.append("-jar")
-    process_args.append(os.path.join("openjml", "openjml.jar"))
+    process_args.append(os.path.join("tools", "openjml", "openjml.jar"))
     process_args.append("-rac")
     process_args.append(source_file)
 
@@ -134,6 +134,7 @@ try:
     return_dict['returnCode'] = process.returncode
     return_dict['stdout'] = stdout.decode("utf-8")
     return_dict['stderr'] = stderr.decode("utf-8")
+    return_dict['checkerArgs']   = process_args
 
     if process.returncode > 1:
         return_dict['timeout'] = True
@@ -149,6 +150,8 @@ try:
         return_dict['stdout'] = stdout.decode("utf-8")
         return_dict['stderr'] = stderr.decode("utf-8")
 
+        return_dict['runArgs'] = run_args
+        
         if process.returncode > 1:
             return_dict['timeout'] = True
     

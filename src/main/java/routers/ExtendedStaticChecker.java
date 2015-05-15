@@ -1,6 +1,7 @@
 package routers;
 
 import runners.CheckerResult;
+import runners.ESCRunner;
 import verily.lang.*;
 
 import java.util.HashMap;
@@ -11,7 +12,7 @@ public class ExtendedStaticChecker{
 
          Content response = new JSONContent();
 
-         response.setContent(result.toJSON());
+         response.setContent(ESCRunner.checkerResultToRise4RunFormat(result));
 
          return response;
      }

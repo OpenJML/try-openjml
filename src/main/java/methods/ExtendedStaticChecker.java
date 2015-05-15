@@ -15,16 +15,9 @@ public class ExtendedStaticChecker{
 
          try {
              return runner.run();
-         } catch (IOException e) {
-             e.printStackTrace();
-         } catch (InterruptedException e) {
-             e.printStackTrace();
-         } catch (InvalidClassfileException e) {
-             e.printStackTrace();
+         } catch (IOException | InterruptedException | InvalidClassfileException e) {
+             return new CheckerResult(e.getMessage(), false);
          }
-
-         return null;
-
      }
 
     public static final void metadata(){}
