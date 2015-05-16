@@ -16,6 +16,6 @@ public class StubWriterTest {
     public void testWriteStub() throws InvalidClassfileException, IOException {
         File f= StubWriter.writeStubExtractingClassName(StubLoader.loadStub("Test1.java"));
 
-        assertTrue(f.getAbsolutePath().endsWith("ESCRunner.java"));
+        assertTrue(f.getAbsolutePath().endsWith("Test1.java"));
     }
 }
