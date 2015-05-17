@@ -13,7 +13,7 @@
         <div class="span9">
 
             <div class="page-header">
-                <h1>Try OpenJML Harness Test</h1>
+                <h1>OpenJML Harness Test Page</h1>
             </div>
 
         </div>
