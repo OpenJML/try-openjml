@@ -8,3 +8,5 @@ after_success:
   - chmod 600 scripts/id_rsa
   - ssh-add scripts/id_rsa
   - ssh -oStrictHostKeyChecking=no -l tryopenjml ec2-52-24-178-104.us-west-2.compute.amazonaws.com touch /tmp/working
+
+
