@@ -43,6 +43,7 @@ group.add_argument("-rac", help="run the runtime assertion checker", action="sto
 
 
 parser.add_argument("--timeout", type=int, help="number of seconds to wait before terminating a verification run.", default=10)
+parser.add_argument("--docker",  help="Prefix the commands in such a way that it works in a container.", action="store_true" )
 
 parser.add_argument("FILE", help="The name of the Java file to create")
 parser.add_argument("DATA",
@@ -67,8 +68,12 @@ else:
 #
 # Program begins
 #
+base = ""
 
+if args.docker:
+    base = "/"
 
+    
 # write file out
 
 source_file = os.path.join(tempfile.mkdtemp(), args.FILE)
@@ -84,14 +89,14 @@ configuration = {
         'timeout'  : 'C:/tools/cygwin/bin/timeout',
         'classpath' : "{0};{1}".format(
             os.path.dirname(source_file),
-            os.path.join("tools", "openjml", "jmlruntime.jar")
+            os.path.join(base + "tools", "openjml", "jmlruntime.jar")
         )
     },
     'posix'   : {
         'timeout'  : 'timeout',
         'classpath' : "{0}:{1}".format(
             os.path.dirname(source_file),
-            os.path.join("tools", "openjml", "jmlruntime.jar")
+            os.path.join(base + "tools", "openjml", "jmlruntime.jar")
         )
     }
 }
@@ -108,13 +113,13 @@ run_args  = [timeout, "{0}s".format(args.timeout)]
 if args.esc:
     process_args.append("java")
     process_args.append("-jar")
-    process_args.append(os.path.join("tools", "openjml", "openjml.jar"))
+    process_args.append(os.path.join(base + "tools", "openjml", "openjml.jar"))
     process_args.append("-esc")
     process_args.append(source_file)
 else:
     process_args.append("java")
     process_args.append("-jar")
-    process_args.append(os.path.join("tools", "openjml", "openjml.jar"))
+    process_args.append(os.path.join(base + "tools", "openjml", "openjml.jar"))
     process_args.append("-rac")
     process_args.append(source_file)
 
