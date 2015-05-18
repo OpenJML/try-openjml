@@ -62,6 +62,10 @@ public class CheckerResult {
 
         obj.put("fullOutput", output);
 
+        //
+        // Sometimes we can get \n characters in our way. We need to remove them.
+        //
+        obj.put("stdout", ((String)obj.get("stdout")).trim());
 
         return obj.toJSONString();
     }
