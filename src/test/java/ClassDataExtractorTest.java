@@ -28,5 +28,9 @@ public class ClassDataExtractorTest {
         assertEquals("Test2", e.getName());
     }
 
-
+    @Test
+    public void testExtractClass3() throws IOException, InvalidClassfileException {
+        ClassDataExtractor e = new ClassDataExtractor(StubLoader.loadStub("Test3.java"));
+        assertEquals("Test3", e.getName());
+    }
 }

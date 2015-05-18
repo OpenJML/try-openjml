@@ -19,12 +19,13 @@ public class ClassDataExtractor {
 
     public String getName() throws InvalidClassfileException {
 
-        Pattern pattern = Pattern.compile("(public|private)\\s+class\\s+([^\\s]+)");
+        Pattern pattern = Pattern.compile("(public|private)\\s+class\\s+([^\\s]+)\\s*[\\{ie]+");
 
         Matcher matcher = pattern.matcher(source);
 
         boolean found = false;
         while (matcher.find()) {
+            System.out.println(matcher.group(2));
             return matcher.group(2);
         }
 
