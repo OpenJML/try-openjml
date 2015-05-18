@@ -67,10 +67,10 @@ public class ESCRunner extends Runner {
                 JSONObject md    = new JSONObject();
 
                 plain.put("MimeType", "text/plain");
-                plain.put("Value", "OpenJML could not verify your program before the timeout elapsed. Please try again (or write a smaller program).");
+                plain.put("Value", "OpenJML could not verify your program before the timeout elapsed. Please try again (or write a smaller program)." + Constants.VERILY_TAGLINE_TXT);
 
                 md.put("MimeType", "text/x-web-markdown");
-                md.put("Value", "**OpenJML could not verify your program before the timeout elapsed. Please try again (or write a smaller program).**");
+                md.put("Value", "**OpenJML could not verify your program before the timeout elapsed. Please try again (or write a smaller program).**" + Constants.VERILY_TAGLINE_MD);
 
 
                 responses.add(plain);
@@ -86,10 +86,10 @@ public class ESCRunner extends Runner {
                 JSONObject md    = new JSONObject();
 
                 plain.put("MimeType", "text/plain");
-                plain.put("Value", "Your program appears to satisfy its specifications!");
+                plain.put("Value", "Your program appears to satisfy its specifications!" + Constants.VERILY_TAGLINE_TXT);
 
                 md.put("MimeType", "text/x-web-markdown");
-                md.put("Value", "**Your program appears to satisfy its specifications!**");
+                md.put("Value", "**Your program appears to satisfy its specifications!**" + Constants.VERILY_TAGLINE_MD);
 
                 responses.add(plain);
                 responses.add(md);
@@ -103,10 +103,10 @@ public class ESCRunner extends Runner {
                 JSONObject md    = new JSONObject();
 
                 plain.put("MimeType", "text/plain");
-                plain.put("Value", o.get("stdout"));
+                plain.put("Value", o.get("stdout") + Constants.VERILY_TAGLINE_TXT);
 
                 md.put("MimeType", "text/x-web-markdown");
-                md.put("Value", "```" + o.get("stdout") + "```");
+                md.put("Value", "```" + o.get("stdout") + "```" + Constants.VERILY_TAGLINE_MD);
 
                 responses.add(plain);
                 responses.add(md);
@@ -125,10 +125,10 @@ public class ESCRunner extends Runner {
             JSONObject md    = new JSONObject();
 
             plain.put("MimeType", "text/plain");
-            plain.put("Value", "An error occurred while trying to verify your program (or there's a bug in OpenJML). Please send the program you were trying to verify to jls@cs.ucf.edu.");
+            plain.put("Value", "An error occurred while trying to verify your program (or there's a bug in OpenJML). Please send the program you were trying to verify to jls@cs.ucf.edu." + Constants.VERILY_TAGLINE_TXT);
 
             md.put("MimeType", "text/x-web-markdown");
-            md.put("Value", "**An error occurred while trying to verify your program (or there's a bug in OpenJML). Please send the program you were trying to verify to jls@cs.ucf.edu.**");
+            md.put("Value", "**An error occurred while trying to verify your program (or there's a bug in OpenJML). Please send the program you were trying to verify to jls@cs.ucf.edu.**" + Constants.VERILY_TAGLINE_MD);
 
 
             responses.add(plain);

@@ -29,21 +29,25 @@ public class Test2 {\n \
 	$scope.escCheck = "Checking... Please wait.";
 
 
-	$timeout(
-	    function(){
-
-		var responseRaw = ExtendedStaticChecker.run($scope.program).response;
+	ExtendedStaticChecker.Async.run(
+	    $scope.program,
+	    function(data){
+		var responseRaw = data.response;
 		var response    = JSON.parse(responseRaw);
 		$scope.response = JSON.stringify(response, null, '\t');
 
 		$scope.escCheck = tmp;
 
-
 		// find the markdown result
 		var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
 		$scope.output = $sce.trustAsHtml(markdown.toHTML(markdownContent).replace(/code>/g, "pre>"));
+
+		$scope.$apply();
 		
-	    }, 1000);
+	    },
+	    function(){
+		alert('Failed to ESC Check program...');
+	    });
     };
 
 
@@ -53,24 +57,28 @@ public class Test2 {\n \
 	$scope.racCheck = "Checking... Please wait.";
 
 
-	$timeout( 
-	    function(){
 
-		var responseRaw = RuntimeAssertionChecker.run($scope.program).response;
+	RuntimeAssertionChecker.Async.run(
+	    $scope.program,
+	    function(data){
+	
+		var responseRaw = data.response;
 		var response    = JSON.parse(responseRaw);
 		$scope.response = JSON.stringify(response, null, '\t');
-
+		
 		$scope.racCheck = tmp;
-
 		
 		// find the markdown result
 		var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
-		$scope.output = $sce.trustAsHtml(markdown.toHTML(markdownContent).replace(/code>/g, "pre>"));
-		
-		
-	    }, 1000);
-    };
+		$scope.output = $sce.trustAsHtml(markdown.toHTML(markdownContent).replace(/code>/g, "pre>"));	
 
+		$scope.$apply();
+	    },
+	    function(){
+		alert('Failed to RAC Check Program...');
+	    });
+    };
+    
 
 
 });
