@@ -27,8 +27,12 @@ public class ESCRunner extends Runner {
 
         args.add("sh");
         args.add("-c");
-        args.add(String.format("cat %s | python tools/tool_runner.py --timeout 20 -esc %s", filePath.replaceAll("\\\\", "/"), fileName + ".java"));
-        //args.add(String.format("docker run -i openjml/try:v1 python /tools/tool_runner.py --docker --timeout 20 -esc %s < %s", fileName + ".java", filePath.replaceAll("\\\\", "/")));
+
+        //
+        // use this to toggle between docker and docker mode
+        //
+        //args.add(String.format("cat %s | python tools/tool_runner.py --timeout 20 -esc %s", filePath.replaceAll("\\\\", "/"), fileName + ".java"));
+        args.add(String.format("cat %s | docker run -i openjml/try:v1 python /tools/tool_runner.py --docker --timeout 20 -esc %s", filePath.replaceAll("\\\\", "/"), fileName + ".java"));
 
         String[] ar = new String[args.size()];
         return args.toArray(ar);
