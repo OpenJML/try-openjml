@@ -45,7 +45,12 @@
         #footer {
         background-color: #f5f5f5;
         }
-
+        #code{
+        font-family:     "Courier New"
+                            Courier
+                            monospace;
+        }
+        }
         /* Lastly, apply responsive CSS fixes as necessary */
         @media (max-width: 1000px) {
         #footer {
@@ -111,13 +116,55 @@
 
                      <table style="width:550px">
                        <tr>
-                         <td><h2>About OpenJML</h2></td>
+                         <td><h2>Tutorials 1: Type-checking</h2></td>
 
                        </tr>
                        <tr>
-                         <td><p> OpenJML is a suite of tools for editing, parsing, type-checking, verifying (static checking), and run-time checking Java programs that are annotated with JML statements stating what the program's methods are supposed to do and the invariants the data structures should obey. JML annotations state preconditions, postconditions, invariants and the like about a method or class; OpenJML's tools will then check that the implementation and the specifications are consistent.</p>
-                             <p> The Java Modeling Language (JML) is a behavioral interface specification language (BISL) that can be used to specify the behavior of Java modules. It combines the design by contract approach of Eiffel and the model-based specification approach of the Larch family of interface specification languages, with some elements of the refinement calculus. </p>
-                        </td>
+                         <td>
+
+
+                         <p>
+                         The OpenJML tool operates like a Java compiler, on a set of files.  For example, the command
+                         </p>
+
+                         <code>
+
+                         java -jar <I>$INSTALL</I>/openjml.jar -no-purityCheck A.java
+
+                         </code>
+
+                         <p>
+                         will type-check the Java and JML in the A.java file and any classes on which it depends.
+                         Include the full absolute or relative path to the openjml.jar file as needed.
+                         (The <code>-noPurityCheck</code> option suppresses many warnings about the use of non-pure functions, since the JDK libraries are not yet populated with appropriate pure annotations.)
+                         </p><p>
+                         For example, put the following text in a file named <code>A.java</code> and execute the command above.
+                         </p>
+
+                           <code>
+                         public class A {
+
+                           //@ ensures \result == true;
+                           public void m() {}
+
+                         }
+                         </code>
+
+                         <p>
+                         The following output is obtained:
+                         </p>
+
+                         <code>
+                         A.java:3: A \result expression may not be used in the specification of a method that returns void
+                           //@ ensures \result == true;
+                                        ^
+                         1 error
+                         </code>
+
+
+
+
+                         </td>
 
                        </tr>
                        <tr>

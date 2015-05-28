@@ -115,8 +115,79 @@
 
                        </tr>
                        <tr>
-                         <td><p> OpenJML is a suite of tools for editing, parsing, type-checking, verifying (static checking), and run-time checking Java programs that are annotated with JML statements stating what the program's methods are supposed to do and the invariants the data structures should obey. JML annotations state preconditions, postconditions, invariants and the like about a method or class; OpenJML's tools will then check that the implementation and the specifications are consistent.</p>
-                             <p> The Java Modeling Language (JML) is a behavioral interface specification language (BISL) that can be used to specify the behavior of Java modules. It combines the design by contract approach of Eiffel and the model-based specification approach of the Larch family of interface specification languages, with some elements of the refinement calculus. </p>
+                        <td>
+
+
+                        <p>
+                        To perform static checking of the JML specifications you will need an SMT solver
+                        to determine logical satisfiability. See the installation instructions and the list
+                        of provers above and select one or more to install on your system.
+                        </p>
+                        <p>
+                        To run the static checker, use a command-line like the following, substituting
+                        the path to the (in this case Z3) executable in your system. If you are using
+                        yices, substitute "yices2" for "z3_4_3".
+                        </p>
+                        <div style="background-color:lightblue">
+                       <code>
+
+                        java -jar <i>$INSTALL</i>/openjml.jar -esc -prover z3_4_3 -exec <em>path-to-executable</em> -no-purityCheck B.java
+
+                        </code>
+                        </div>
+                        <p>
+                        For example, place the following text in the file <code>B.java</code> and execute the command above.
+                        </p>
+                        <div style="background-color:lightblue">
+                         <code>
+                        public class B {
+
+                          static int j,k;
+
+                          //@ requires i >= 0;
+                          //@ modifies j;
+                          //@ ensures j == i;
+                          public static void setj(int i) {
+                            k = i;
+                          }
+
+                          //@ ensures j == 1;
+                          public static void main(String[] args) {
+                            setj(3);
+                          }
+
+                        }
+                        </code>
+                        </div>
+
+
+                        <p>
+                        The following output is produced:
+                        </p>
+                        <div style="background-color:lightblue">
+                         <code>
+                        B.java:9: warning: The prover cannot establish an assertion (Assignable) in method setj
+                            k = i;
+                              ^
+                        B.java:6: warning: Associated declaration
+                          //@ modifies j;
+                              ^
+                        B.java:13: warning: The prover cannot establish an assertion (Postcondition) in method main
+                          public static void main(String[] args) {
+                                             ^
+                        B.java:12: warning: Associated declaration
+                          //@ ensures j == 1;
+                              ^
+                        4 warnings
+                        </code>
+                        </div>
+                        <ul>
+                        <li>The first two messages point out that the specification of the method <code>setj</code> states that the field <code>j</code> (and nothing else) is modified by the method, but the method actually modifies <code>k</code>.
+                        </li>
+                        <li>The second pair of messages points out that the call of <code>setj</code> in method <code>main</code> does not satisfy the postcondition; the "Associated declaration" warning that follows indicates the violated postcondition.
+                        </li>
+                        </ul>
+
                         </td>
 
                        </tr>
@@ -125,14 +196,15 @@
 
                        </tr>
                      </table>
-                            <nav>
+
+                        <nav>
                               <ul class="pager">
                                 <li><a href="view">Intro</a></li>
                                 <li><a href="tutsOne">Tutorial 1</a></li>
                                 <li><a href="tutsTwo">Tutorial 2</a></li>
 
                               </ul>
-                            </nav>
+                       </nav>
                      </div>
                 </div>
 
