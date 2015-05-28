@@ -6,6 +6,6 @@ after_success:
   - openssl aes-256-cbc -K $encrypted_8af5c54b98ba_key -iv $encrypted_8af5c54b98ba_iv -in scripts/id_rsa.enc -out scripts/id_rsa -d
   # install the key
   - chmod 600 scripts/id_rsa
-  - ssh -oStrictHostKeyChecking=no -l tryopenjml -i scripts/id_rsa ec2-52-24-178-104.us-west-2.compute.amazonaws.com "cd /home/tryopenjml/try-openjml; git pull; killall java"
+  - ssh -oStrictHostKeyChecking=no -l tryopenjml -i scripts/id_rsa ec2-52-24-178-104.us-west-2.compute.amazonaws.com "cd /home/tryopenjml/try-openjml; git pull; mvn compile; killall java"
 
 
