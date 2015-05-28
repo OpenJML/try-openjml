@@ -2,6 +2,7 @@ package runners;
 
 import lang.ClassDataExtractor;
 import lang.InvalidClassfileException;
+import util.JobControl;
 import util.StubWriter;
 
 import java.io.*;
@@ -27,30 +28,35 @@ public abstract class Runner {
         File stub = StubWriter.writeStubExtractingClassName(this.source);
         String fileName = new ClassDataExtractor(source).getName();
 
-        Process p = new ProcessBuilder(getArgs(fileName, stub.getAbsolutePath())).redirectErrorStream(true).start();
+        try {
+            JobControl.start(); // critical section start
+            Process p = new ProcessBuilder(getArgs(fileName, stub.getAbsolutePath())).redirectErrorStream(true).start();
 
-        InputStream is = p.getInputStream();
+            InputStream is = p.getInputStream();
 
-        List<String> escOutput = new ArrayList<String>();
+            List<String> escOutput = new ArrayList<String>();
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        StringBuilder sb = new StringBuilder();
-        String line = null;
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
 
-        while ( (line = br.readLine()) != null) {
-            sb.append(line);
-            sb.append(System.getProperty("line.separator"));
-            escOutput.add(line);
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                sb.append(System.getProperty("line.separator"));
+                escOutput.add(line);
+            }
+
+            is.close();
+
+            int exitStatus = p.waitFor();
+
+            if (exitStatus != 0) {
+                return new CheckerResult(sb.toString(), false);
+            }
+            return new CheckerResult(sb.toString(), true);
+
+        }finally{
+            JobControl.finish();
         }
-
-        is.close();
-
-        int exitStatus = p.waitFor();
-
-        if (exitStatus != 0) {
-            return new CheckerResult(sb.toString(), false);
-        }
-
-        return new CheckerResult(sb.toString(), true);
     }
 }
