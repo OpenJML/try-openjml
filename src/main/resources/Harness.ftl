@@ -9,6 +9,7 @@
 
     <!-- CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/prettify.css" rel="stylesheet">
     <style type="text/css">
 
         /* Sticky footer styles
@@ -45,7 +46,12 @@
         #footer {
         background-color: #f5f5f5;
         }
-
+        #code{
+        font-family:     "Courier New"
+                            Courier
+                            monospace;
+        }
+        }
         /* Lastly, apply responsive CSS fixes as necessary */
         @media (max-width: 1000px) {
         #footer {
@@ -84,17 +90,19 @@
     <div class="container">
     <@verilyUtils.enableAjaxInterface/>
 
-   <script src="/js/angular.min.js"></script>
+       <script src="/js/angular.min.js"></script>
+       <script src="/js/prettify.js"></script>
        <script src="/js/harness.js"></script>
        <script src="/js/bootstrap.min.js"></script>
        <script src="/js/markdown.min.js"></script>
-       <script type="text/javascript"></script>
+       <script language="javascript" type="text/javascript" src="/edit_area/edit_area_full.js"></script>
+
 
            <div class="row">
                  <div class="span6">
 
                      <div class="page-header">
-                         <h1><img src="/images/JmlLogo.jpg" alt="Logo" class="row" height="80" width="80" />  Try OpenJML</h1>
+                         <h1><img src="/images/JmlLogo.jpg" alt="Logo" class="row" height="80" width="80">  Try OpenJML</h1>
                      </div>
 
 
@@ -103,66 +111,45 @@
 
 
     <div ng-app="Harness">
-
-        <div id="left_col">
+		<div id="left_col">
 
                  <div class="row">
                      <div class="span5">
+						<iframe src="/TutMethodTwo.ftl" width="550" height="700" frameborder="0">
+						<p>Your browser does not support iframes.</p>
+						</iframe>
 
-                     <table style="width:550px">
-                       <tr>
-                         <td><h2>About OpenJML</h2></td>
-
-                       </tr>
-                       <tr>
-                         <td><p> OpenJML is a suite of tools for editing, parsing, type-checking, verifying (static checking), and run-time checking Java programs that are annotated with JML statements stating what the program's methods are supposed to do and the invariants the data structures should obey. JML annotations state preconditions, postconditions, invariants and the like about a method or class; OpenJML's tools will then check that the implementation and the specifications are consistent.</p>
-                             <p> The Java Modeling Language (JML) is a behavioral interface specification language (BISL) that can be used to specify the behavior of Java modules. It combines the design by contract approach of Eiffel and the model-based specification approach of the Larch family of interface specification languages, with some elements of the refinement calculus. </p>
-                        </td>
-
-                       </tr>
-                       <tr>
-                         <td>  <h2></h2> </td>
-
-                       </tr>
-                     </table>
-                            <nav>
-                              <ul class="pager">
-                                <li><a href="view">Intro</a></li>
-                                <li><a href="tutsOne">Tutorial 1</a></li>
-                                <li><a href="tutsTwo">Tutorial 2</a></li>
-
-                              </ul>
-                            </nav>
                      </div>
                 </div>
 
         </div>
-
-
-
-
-
-
-
        <div id="right_col">
 
               <div class="row" ng-controller="HarnessCtrl">
                    <div class="span6">
                      <div class="row">
        		            <h2>Input Program</h2>
-                         <textarea data-ng-model="program" class="input-block-level" rows="20" cols="75" style="font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;">
-                         </textarea>
+                         <textarea id="textarea_1" data-ng-model="program" class="input-block-level" rows="20"
+                         cols="87"></textarea>
+                    <form>
+                    First name:<br>
+                    <input type="text" value="{{program|json}}">
+                    <br>
+                    </form>
+                         <p ></p>
                      </div>
 
        		          <div class="row" >
        		            <h2>Verification Output</h2>
+
        		            <div class="well" data-ng-bind-html="output">
+
        		          </div>
        		    </div>
 
                <div class="row" align="right">
                		  <p>
-                   <button class="btn btn-large btn-primary" data-ng-click="rac()" type="button">{{racCheck}}</button>
+                   <button class="btn btn-large btn-primary" data-ng-click="rac();" type="button">{{racCheck}}</button>
                    <button class="btn btn-large" type="button" data-ng-click="esc();">{{escCheck}}</button>
                		  </p>
                </div>
@@ -185,7 +172,19 @@
             </div>
 
 
+<script>
+prettyPrint();
+</script>
+<script type="text/javascript">
+       editAreaLoader.init({
+       	id : "textarea_1"		// textarea id
+       	,syntax: "java"			// syntax to be uses for highgliting
+       	,start_highlight: true		// to display with highlight mode on start-up
+       	,toolbar: "__tryOpenJML__"  //toolbar display
+       	,allow_toggle: false
+       });
 
-
+       </script>
        </body>
        </html>
+
