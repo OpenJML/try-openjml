@@ -131,12 +131,7 @@
        		            <h2>Input Program</h2>
                          <textarea id="textarea_1" data-ng-model="program" class="input-block-level" rows="20"
                          cols="87"></textarea>
-                    <form>
-                    First name:<br>
-                    <input type="text" value="{{program|json}}">
-                    <br>
-                    </form>
-                         <p ></p>
+
                      </div>
 
        		          <div class="row" >
