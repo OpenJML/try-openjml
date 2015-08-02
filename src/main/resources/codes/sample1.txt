@@ -1,0 +1,8 @@
+public class SqrtExample {
+public final static double eps = 0.0001;
+//@ requires x >= 0.0;
+//@ ensures approximatelyEqualTo(x, \result * \result, eps);
+public static double sqrt(double x) {
+return Math.sqrt(x);
+}
+}

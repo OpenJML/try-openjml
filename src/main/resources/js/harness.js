@@ -1,13 +1,15 @@
 
 var app = angular.module('Harness', []);
 
-app.controller('HarnessCtrl', function ($scope, $sce, $timeout) {
+app.controller('HarnessCtrl', function ($scope, $sce, $timeout, $http) {
+
+
 
     $scope.output = $sce.trustAsHtml("<pre>No output yet.</pre>");
     $scope.response = $sce.trustAsHtml("No response yet.");
     $scope.escCheck = "ESC Check";
     $scope.racCheck = "RAC Check";
-    
+
     $scope.program = "//\n// This program contains a coding error and one other possible error. \n// Can you find them?\n//\n\
 public class Test2 {\n \
     //@ requires a > 0;\n \
@@ -23,66 +25,82 @@ public class Test2 {\n \
     }\n \
 }\n";
 
+ 
+
+$scope.esc = function(){
+
+
+    var tmp = $scope.escCheck;
+    $scope.escCheck = "Checking... Please wait.";
+
+    $scope.$watch(function(scope){ return scope.program; }, function(){ console.log("digest called");  }, true);
+
     
-    $scope.esc = function(){
 
-	var tmp = $scope.escCheck;
-	$scope.escCheck = "Checking... Please wait.";
+    $http({
+        url:'http://ec2-52-25-26-222.us-west-2.compute.amazonaws.com/ExtendedStaticChecker/run',
+        data: {Source:$scope.program},
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'}
+    }).
+        success(function(data, status, headers, config) {
+        console.log(data);
+
+        var response = data;
+        $scope.escCheck = tmp;
+        // find the markdown result
+        var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
+        var output = markdown.toHTML(markdownContent).replace(/code>/g, "pre>");
 
 
-	ExtendedStaticChecker.Async.run(
-	    $scope.program,
-	    function(data){
-		var responseRaw = data.response;
-		var response    = JSON.parse(responseRaw);
-		$scope.response = JSON.stringify(response, null, '\t');
+        $scope.output= $sce.trustAsHtml("<pre>"+ output +"</pre>");
+        $scope.escCheck = "ESC Check";
 
-		$scope.escCheck = tmp;
 
-		// find the markdown result
-		var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
-		$scope.output = $sce.trustAsHtml(markdown.toHTML(markdownContent).replace(/code>/g, "pre>"));
+        }).
+        error(function(data, status, headers, config) {
+        console.log(data);
+        });
 
-		$scope.$apply();
-		
-	    },
-	    function(){
-		alert('Failed to ESC Check program...');
-	    });
     };
+
+   
 
 
     $scope.rac = function(){
 
-	var tmp = $scope.racCheck;
-	$scope.racCheck = "Checking... Please wait.";
+    var tmp = $scope.racCheck;
+    $scope.racCheck = "Checking... Please wait.";
 
 
+        $http({
+                url:'http://ec2-52-25-26-222.us-west-2.compute.amazonaws.com/RuntimeAssertionChecker/run',
+                data: {Source:$scope.program},
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'}
+            }).
+                success(function(data, status, headers, config) {
+                console.log(data);
 
-	RuntimeAssertionChecker.Async.run(
-	    $scope.program,
-	    function(data){
-	
-		var responseRaw = data.response;
-		var response    = JSON.parse(responseRaw);
-		$scope.response = JSON.stringify(response, null, '\t');
-		
-		$scope.racCheck = tmp;
-		
-		// find the markdown result
-		var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
-		$scope.output = $sce.trustAsHtml(markdown.toHTML(markdownContent).replace(/code>/g, "pre>"));	
+                var response = data;
+                $scope.racCheck = tmp;
+                // find the markdown result
+                var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
+                var output = markdown.toHTML(markdownContent).replace(/code>/g, "pre>");
 
-		$scope.$apply();
-	    },
-	    function(){
-		alert('Failed to RAC Check Program...');
-	    });
+
+                $scope.output= $sce.trustAsHtml("<pre>"+ output +"</pre>");
+                $scope.racCheck = "RAC Check";
+
+
+                }).
+                error(function(data, status, headers, config) {
+                console.log(data);
+                });
+
+
     };
-    
 
 
 });
-
-
 

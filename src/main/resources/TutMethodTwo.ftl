@@ -30,14 +30,7 @@
         width: 100%;
         margin: 0 auto;
         }
-        #left_col {
-               float:left;
-               width:50%;
-            }
-        #right_col {
-               float:right;
-               width:50%;
-        }
+        
         /* Set the fixed height of the footer here */
         #push,
         #footer {
@@ -99,93 +92,38 @@
 
     <div ng-app="Harness">
 
-        <div id="left_col">
+      <div class="row" ng-controller="HarnessCtrl">
+                   <div class="span6">
+                     <div class="row">
+                      <h2>Input Program</h2>
+                        
+                        
+                <textarea name="editor" id="editor" data-ng-model="program" rows="20" cols="80" ></textarea> 
+                      
 
-                 <div class="row">
-                     <div class="span5">
+                     
+                        </div>
 
-                     <table style="width:550px">
-                       <tr>
-                         <td><h2>Tutorials 1: Type-checking</h2></td>
-
-                       </tr>
-                       <tr>
-                         <td>
-
-
-                         <p>
-                         The OpenJML tool operates like a Java compiler, on a set of files.  For example, the command
-                         </p>
-<p>
-<pre class="prettyprint linenums:1">
-//
-// This program contains two errors. Can you find them?
-//
-public class MaybeAdd {
-     //@ requires a > 0;
-     //@ requires b > 0;
-     //@ ensures \result == a+b;
-     public static int add(int a, int b){
-         return a-b;
-     }
-
-
-    public static void main(String args[]){
-         System.out.println(add(2,3));
-     }
- }
-</pre>
-</p>
-                         <p>
-                         will type-check the Java and JML in the A.java file and any classes on which it depends.
-                         Include the full absolute or relative path to the openjml.jar file as needed.
-                         (The <code>-noPurityCheck</code> option suppresses many warnings about the use of non-pure functions, since the JDK libraries are not yet populated with appropriate pure annotations.)
-                         </p><p>
-                         For example, put the following text in a file named <code>A.java</code> and execute the command above.
-                         </p>
-<pre class="prettyprint linenums:1">
-public class A {
-
-//@ ensures \result == true;
-public void m() {}
-
-}</pre>
-
-                         <p>
-                         The following output is obtained:
-                         </p>
-<pre class="prettyprint linenums:1">
-A.java:3: A \result expression may not be used in the specification of
- a method that returns void
-
-//@ ensures \result == true;
-                    ^
-                 1 error
-</pre>
-
-
-
-
-                         </td>
-
-                       </tr>
-                       <tr>
-                         <td>  <h2></h2> </td>
-
-                       </tr>
-                     </table>
-                            <nav>
-                              <ul class="pager">
-                                <li><a href="#">Intro</a></li>
-                                <li><a href="tutsOne">Tutorial 1</a></li>
-                                <li><a href="tutsTwo">Tutorial 2</a></li>
-
-                              </ul>
-                            </nav>
                      </div>
-                </div>
 
-        </div>
+                    <div class="row" >
+                      <h2>Verification Output</h2>
+
+                      <div class="well" data-ng-bind-html="output">
+
+                    </div>
+              </div>
+
+               <div class="row" align="right">
+                    <p>
+                   <button class="btn btn-large btn-primary" data-ng-click="rac();" type="button">{{racCheck}}</button>
+                   <button class="btn btn-large" type="button" data-ng-click="esc();">{{escCheck}}</button>
+                    </p>
+               </div>
+
+
+              </div>
+           </div>
 
        </div>
        </div>
@@ -200,11 +138,11 @@ prettyPrint();
 </script>
 <script type="text/javascript">
        editAreaLoader.init({
-       	id : "textarea_1"		// textarea id
-       	,syntax: "java"			// syntax to be uses for highgliting
-       	,start_highlight: true		// to display with highlight mode on start-up
-       	,toolbar: "__tryOpenJML__"  //toolbar display
-       	,allow_toggle: false
+        id : "textarea_1"   // textarea id
+        ,syntax: "java"     // syntax to be uses for highgliting
+        ,start_highlight: true    // to display with highlight mode on start-up
+        ,toolbar: "__tryOpenJML__"  //toolbar display
+        ,allow_toggle: false
        });
 
        </script>
