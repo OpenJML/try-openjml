@@ -1,0 +1,26 @@
+package org.jmlspecs.samples.jmltutorial;
+//@ refine "Person.java";
+public class Person {
+private /*@ spec_public non_null @*/
+String name;
+private /*@ spec_public @*/
+int weight;
+/*@ public invariant !name.equals("") @ && weight >= 0; @*/
+//@ also
+//@ ensures \result != null;
+public String toString();
+//@ also
+//@ ensures \result == weight;
+public /*@ pure @*/ int getWeight();
+/*@ also
+@ requires kgs >= 0;
+@ requires weight + kgs >= 0;
+@ ensures weight == \old(weight + kgs);
+@*/
+public void addKgs(int kgs);
+/*@ also
+@ requires n != null && !n.equals("");
+@ ensures n.equals(name)
+@ && weight == 0; @*/
+public Person(String n);
+}

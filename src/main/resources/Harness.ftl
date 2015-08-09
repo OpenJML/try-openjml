@@ -146,7 +146,7 @@
 						<div style="overflow: auto; width: 580px; height: 550px;">
             <table style="width:550px">
                        <tr>
-                         <td><h3>Introduction</h3></td>
+                         <td><h3 id="intro">Introduction</h3></td>
 
                        </tr>
                        <tr>
@@ -158,7 +158,7 @@
                          </p>
                          <p>These behaviors of Java module are specified by adding assertions to Java source code, eg pre conditions, post conditions and invariants. These assertions are added as comments in your Java ﬁle, between <i>/*@ . . . @*/</i>, or after <i>//@</i>.
                          </p>
-                         <h3>Tutorial 1: Pre-condition and Post-condition</h3>
+                         <h3 id="tut1">Tutorial 1: Pre-condition and Post-condition</h3>
                          <p>
                           Pre- and post-conditions deﬁne a contract between a class and its clients; the client must ensure precondition and may assume post-condition and the method may assume precondition and must ensure post-condition.
                          </p>
@@ -180,39 +180,72 @@ return Math.sqrt(x);
 </pre>
 <button name="sample1" id="sample1" class="btn btn-large" type="button" onclick="CopyMe(sample1);">Try this!</button>
 </p>
+                         <h3 id="tut2">Tutorial 2: Invariants</h3>
                          <p>
-                         will type-check the Java and JML in the A.java file and any classes on which it depends.
-                         Include the full absolute or relative path to the openjml.jar file as needed.
-                         (The <code>-noPurityCheck</code> option suppresses many warnings about the use of non-pure functions, since the JDK libraries are not yet populated with appropriate pure annotations.)
-                         </p><p>
-                         For example, put the following text in a file named <code>A.java</code> and execute the command above.
+                          An invariant is a property that should hold in all client-visible states. It must be true when control is not inside the object's methods. That is, an invariant must hold at the end of each constructor's execution, and at the beginning and end of all methods.
                          </p>
-                      <div id="top">
-<pre class="prettyprint linenums:1">
-public class A {
-
-//@ ensures \result == true;
-public void m() {}
-
-}</pre>
-
                          <p>
-                         The following output is obtained:
+                          Invariants are implicitly included in all pre- and post-conditions and they must also be preserved if exception is thrown.
                          </p>
+                  
+<p>
 <pre class="prettyprint linenums:1">
-A.java:3: A \result expression may not be used in the specification of
- a method that returns void
-
-//@ ensures \result == true;
-                    ^
-                 1 error
+package org.jmlspecs.samples.jmltutorial;
+//@ refine "Person.java";
+public class Person {
+private /*@ spec_public non_null @*/
+String name;
+private /*@ spec_public @*/
+int weight;
+/*@ public invariant !name.equals("") @ && weight >= 0; @*/
+//@ also
+//@ ensures \result != null;
+public String toString();
+//@ also
+//@ ensures \result == weight;
+public /*@ pure @*/ int getWeight();
+/*@ also
+@ requires kgs >= 0;
+@ requires weight + kgs >= 0;
+@ ensures weight == \old(weight + kgs);
+@*/
+public void addKgs(int kgs);
+/*@ also
+@ requires n != null && !n.equals("");
+@ ensures n.equals(name)
+@ && weight == 0; @*/
+public Person(String n);
+}
 </pre>
-</div>
-
-
-
-                         </td>
-
+<button name="sample2" id="sample2" class="btn btn-large" type="button" onclick="CopyMe2(sample2);">Try this!</button>
+</p>
+                        <p>
+                          In the above example the name of a person should not be NULL and weight of the person should be non-negative.
+                        </p>
+                        <h3 id="tut3">Tutorial 3: Runtime Assertion Checking (RAC)</h3>
+                         <p>
+                          Runtime Assertion Checking translates JML assertions into runtime checks: during execution, all assertions are tested and any violation of an assertion produces an Error.
+                         </p> 
+                         <p>
+                          Eg, it will test that if debit throws an exception, the balance hasn't changed, and all invariants still hold.
+                         </p> 
+<p>
+<pre class="prettyprint linenums:1">
+/*@ ...
+signals (Exception)
+balance == nold(balance);
+@*/
+public int debit(int amount) f ... g
+</pre>
+</p>
+                      <h3 id="tut4">Tutorial 4: Extended Static Checking (ESC)</h3>
+                         <p>
+                          Extended Static Checking tries to prove correctness of speciﬁcations, at compile-time. This approach used in ESC/Java is called extended static checking, which is a collective name referring to a range of techniques for statically checking the correctness of various program constraints
+                         </p> 
+                         <h3>Using TryOpenJML</h3>
+                         <p>
+                          Enter your code, click and run RAC or ESC. For trying the examples given above, click on <i>'Try it'</i> press Spacebar and click on RAC or ESC to run.
+                         </p> 
                        </tr>
                        <tr>
                          <td> </td>
@@ -224,11 +257,11 @@ A.java:3: A \result expression may not be used in the specification of
                             
 <nav>
                               <ul class="pager">
-                                <li><a href="#top">Intro</a></li>
-                                <li><a href="#">Tutorial 1</a></li>
-                                <li><a href="#">Tutorial 2</a></li>
-                                <li><a href="#">Tutorial 3</a></li>
-                                <li><a href="#">Tutorial 4</a></li>
+                                <li><a href="#intro">Intro</a></li>
+                                <li><a href="#tut1">Tutorial 1</a></li>
+                                <li><a href="#tut2">Tutorial 2</a></li>
+                                <li><a href="#tut3">Tutorial 3</a></li>
+                                <li><a href="#tut4">Tutorial 4</a></li>
                                 
                                 
                               </ul>
@@ -323,17 +356,38 @@ function CopyMe() {
 
     document.getElementById('editor').value = text;
     document.getElementById('editor').focus();
-
-    var e = $.Event('keypress');
-    e.which = 65; // Character 'A'
-    $('editor').trigger(e);
-                 
-
-    
-    
+ 
   }
 }
 
+function CopyMe2() {
+  
+  var button = document.getElementById(sample1);
+
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+     xmlhttp = new XMLHttpRequest();
+  }
+  else
+  {
+    // code for IE6, IE5
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  if (xmlhttp != null)
+  {
+ 
+    xmlhttp.open("GET","/codes/sample2.txt",false); // the false makes this synchronous!
+    xmlhttp.send();
+    var text = xmlhttp.responseText;
+
+    document.getElementById('editor').value = text;
+    document.getElementById('editor').focus();
+   
+  }
+}
 
 
 </script>
