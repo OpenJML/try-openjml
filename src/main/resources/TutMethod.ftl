@@ -88,7 +88,6 @@
        <script src="/js/harness.js"></script>
        <script src="/js/bootstrap.min.js"></script>
        <script src="/js/markdown.min.js"></script>
-       <script language="javascript" type="text/javascript" src="/edit_area/edit_area_full.js"></script>
 
     <div ng-app="Harness">
 
@@ -133,18 +132,5 @@
 
 
 
-<script>
-prettyPrint();
-</script>
-<script type="text/javascript">
-       editAreaLoader.init({
-        id : "textarea_1"   // textarea id
-        ,syntax: "java"     // syntax to be uses for highgliting
-        ,start_highlight: true    // to display with highlight mode on start-up
-        ,toolbar: "__tryOpenJML__"  //toolbar display
-        ,allow_toggle: false
-       });
-
-       </script>
        </body>
        </html>
