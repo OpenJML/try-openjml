@@ -34,7 +34,7 @@
         padding-right: 0px;
         /* The html and body elements cannot have any padding or margin. */
 
-        
+
     }
         }
 
@@ -45,7 +45,7 @@
         height: 100%;
         /* Negative indent footer by it's height */
         width: 1400px;
-        
+
         }
         #left_col {
                float:left;
@@ -77,7 +77,7 @@
         padding-left: 20px;
         padding-right: 20px;
         }
-  
+
 }
 
         /* Custom page CSS
@@ -96,12 +96,12 @@
         }
     </style>
     <style>
-        #editor { 
+        #editor {
                 height: 300px;
-                
+
             }
     </style>
-    
+
     <link rel="shortcut icon" href="/ico/favicon.png">
 
 </head>
@@ -114,16 +114,16 @@
 
     <!-- Begin page content -->
     <div class="container">
-    <@verilyUtils.enableAjaxInterface/>
+  <!--  <@verilyUtils.enableAjaxInterface/> -->
 
        <script src="/js/angular.min.js"></script>
        <script src="/js/prettify.js"></script>
        <script src="/js/harness.js"></script>
        <script src="/js/bootstrap.min.js"></script>
        <script src="/js/markdown.min.js"></script>
-    
-    
-    
+
+
+
 
 
            <div class="row">
@@ -187,7 +187,7 @@ return Math.sqrt(x);
                          <p>
                           Invariants are implicitly included in all pre- and post-conditions and they must also be preserved if exception is thrown.
                          </p>
-                  
+
 <p>
 <pre class="prettyprint linenums:1">
 package org.jmlspecs.samples.jmltutorial;
@@ -217,7 +217,7 @@ public void addKgs(int kgs);
 public Person(String n);
 }
 </pre>
-<button name="sample2" id="sample2" class="btn btn-large" type="button" onclick="CopyMe2(sample2);">Try this!</button>
+<button name="sample2" id="sample2" class="btn btn-large" type="button" onclick="CopyMe2(sample2);">Try it!</button>
 </p>
                         <p>
                           In the above example the name of a person should not be NULL and weight of the person should be non-negative.
@@ -225,10 +225,10 @@ public Person(String n);
                         <h3 id="tut3">Tutorial 3: Runtime Assertion Checking (RAC)</h3>
                          <p>
                           Runtime Assertion Checking translates JML assertions into runtime checks: during execution, all assertions are tested and any violation of an assertion produces an Error.
-                         </p> 
+                         </p>
                          <p>
                           Eg, it will test that if debit throws an exception, the balance hasn't changed, and all invariants still hold.
-                         </p> 
+                         </p>
 <p>
 <pre class="prettyprint linenums:1">
 /*@ ...
@@ -241,20 +241,20 @@ public int debit(int amount) f ... g
                       <h3 id="tut4">Tutorial 4: Extended Static Checking (ESC)</h3>
                          <p>
                           Extended Static Checking tries to prove correctness of speciﬁcations, at compile-time. This approach used in ESC/Java is called extended static checking, which is a collective name referring to a range of techniques for statically checking the correctness of various program constraints
-                         </p> 
+                         </p>
                          <h3>Using TryOpenJML</h3>
                          <p>
                           Enter your code, click and run RAC or ESC. For trying the examples given above, click on <i>'Try it'</i> press Spacebar and click on RAC or ESC to run.
-                         </p> 
+                         </p>
                        </tr>
                        <tr>
                          <td> </td>
 
                        </tr>
                      </table>
-                   
-            </div>  
-                            
+
+            </div>
+
 <nav>
                               <ul class="pager">
                                 <li><a href="#intro">Intro</a></li>
@@ -262,20 +262,20 @@ public int debit(int amount) f ... g
                                 <li><a href="#tut2">Tutorial 2</a></li>
                                 <li><a href="#tut3">Tutorial 3</a></li>
                                 <li><a href="#tut4">Tutorial 4</a></li>
-                                
-                                
+
+
                               </ul>
                               <p><h4>For those who don't need a tutorial</h4></p>
                               <ul class="pager">
                                 <li><a href="/TutMethod.ftl">Fullscreen Editor</a></li>
-                                
-                                
-                                
+
+
+
                               </ul>
-                            </nav>         
+                            </nav>
                      </div>
                 </div>
-                         
+
         </div>
        <div id="right_col">
 
@@ -283,12 +283,12 @@ public int debit(int amount) f ... g
                    <div class="span6">
                      <div class="row">
        		            <h2>Input Program</h2>
-                        
-                        
-                <textarea name="editor" id="editor" data-ng-model="program" rows="20" cols="70" style="font-family:monospace;"></textarea> 
-                      
 
-                     
+
+                <textarea name="editor" id="editor" data-ng-model="program" rows="20" cols="70" style="font-family:monospace;"></textarea>
+
+
+
                         </div>
 
                      </div>
@@ -298,7 +298,7 @@ public int debit(int amount) f ... g
 
        		            <div class="well" data-ng-bind-html="output">
 
-       		          </div>
+       		            </div>
        		    </div>
 
                <div class="row" align="right">
@@ -332,7 +332,7 @@ prettyPrint();
  <script src="//code.jquery.com/jquery-1.11.3.js" type="text/javascript"></script>
 <script type="text/javascript">
 function CopyMe() {
-  
+
   var button = document.getElementById(sample1);
 
   var xmlhttp;
@@ -349,19 +349,19 @@ function CopyMe() {
 
   if (xmlhttp != null)
   {
- 
+
     xmlhttp.open("GET","/codes/sample1.txt",false); // the false makes this synchronous!
     xmlhttp.send();
     var text = xmlhttp.responseText;
 
     document.getElementById('editor').value = text;
     document.getElementById('editor').focus();
- 
+
   }
 }
 
 function CopyMe2() {
-  
+
   var button = document.getElementById(sample1);
 
   var xmlhttp;
@@ -378,14 +378,14 @@ function CopyMe2() {
 
   if (xmlhttp != null)
   {
- 
+
     xmlhttp.open("GET","/codes/sample2.txt",false); // the false makes this synchronous!
     xmlhttp.send();
     var text = xmlhttp.responseText;
 
     document.getElementById('editor').value = text;
     document.getElementById('editor').focus();
-   
+
   }
 }
 
@@ -396,4 +396,3 @@ function CopyMe2() {
 
 
 </html>
-
