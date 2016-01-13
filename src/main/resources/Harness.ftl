@@ -178,7 +178,7 @@ return Math.sqrt(x);
 }
 }
 </pre>
-<button name="sample1" id="sample1" class="btn btn-large" type="button" onclick="CopyMe(sample1);">Try this!</button>
+<button name="sample1" id="sample1" class="btn btn-large" type="button" onclick="CopyMe(sample1);">Try it!</button>
 </p>
                          <h3 id="tut2">Tutorial 2: Invariants</h3>
                          <p>
