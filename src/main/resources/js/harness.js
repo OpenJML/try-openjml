@@ -1,3 +1,18 @@
+var arrIndex = [];
+function getIndicesOf(searchStr, str, caseSensitive) {
+    var startIndex = 0, searchStrLen = searchStr.length;
+    var index, indices = [];
+    if (!caseSensitive) {
+        str = str.toLowerCase();
+        searchStr = searchStr.toLowerCase();
+    }
+    while ((index = str.indexOf(searchStr, startIndex)) > -1) {
+        indices.push(index);
+        startIndex = index + searchStrLen;
+    }
+    arrIndex = indices;
+   // return indices;
+}
 
 var app = angular.module('Harness', []);
 
@@ -25,6 +40,7 @@ public class Test2 {\n \
     }\n \
 }\n";
 
+
  
 
 $scope.esc = function(){
@@ -50,7 +66,19 @@ $scope.esc = function(){
         $scope.escCheck = tmp;
         // find the markdown result
         var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
-        var output = markdown.toHTML(markdownContent).replace(/code>/g, "pre>");
+        var str  = markdown.toHTML(markdownContent).replace(/code>/g, "pre>");
+
+                getIndicesOf("/tmp/", str, false);
+
+
+                for(i=0;i<arrIndex.length;i++){
+                    str = str.slice(0, arrIndex[i]) + str.slice(arrIndex[i]+15);
+                    for(j=i+1;j<arrIndex.length;j++){
+                        arrIndex[j]= arrIndex[j] - 15;
+                    }
+
+                }
+        var output = str;
 
 
         $scope.output= $sce.trustAsHtml("<pre>"+ output +"</pre>");
@@ -69,6 +97,8 @@ $scope.esc = function(){
 
     $scope.rac = function(){
 
+
+
     var tmp = $scope.racCheck;
     $scope.racCheck = "Checking... Please wait.";
 
@@ -86,10 +116,25 @@ $scope.esc = function(){
                 $scope.racCheck = tmp;
                 // find the markdown result
                 var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
-                var output = markdown.toHTML(markdownContent).replace(/code>/g, "pre>");
+            
+                
+                var str  = markdown.toHTML(markdownContent).replace(/code>/g, "pre>");
+
+                getIndicesOf("/tmp/", str, false);
 
 
-                $scope.output= $sce.trustAsHtml("<pre>"+ output +"</pre>");
+                for(i=0;i<arrIndex.length;i++){
+                    str = str.slice(0, arrIndex[i]) + str.slice(arrIndex[i]+15);
+                    for(j=i+1;j<arrIndex.length;j++){
+                        arrIndex[j]= arrIndex[j] - 15;
+                    }
+
+                }
+                var output = str;
+
+
+                $scope.output= $sce.trustAsHtml(output);
+                
                 $scope.racCheck = "RAC Check";
 
 

@@ -4,14 +4,6 @@
     <meta charset="utf-8">
     <title></title>
 
-
-
-
-
-
-
-
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -121,7 +113,7 @@
        <script src="/js/harness.js"></script>
        <script src="/js/bootstrap.min.js"></script>
        <script src="/js/markdown.min.js"></script>
-
+       <script src="//code.jquery.com/jquery-1.11.3.js" type="text/javascript"></script>
 
 
 
@@ -295,10 +287,11 @@ public int debit(int amount) f ... g
 
        		          <div class="row" >
        		            <h2>Verification Output</h2>
-
-       		            <div class="well" data-ng-bind-html="output">
-
-       		            </div>
+                      
+                      
+       		            <div class="well" data-ng-bind-html="output">  </div>
+                      
+                     
        		    </div>
 
                <div class="row" align="right">
@@ -321,7 +314,7 @@ public int debit(int amount) f ... g
        </div>
        <div id="footer">
                 <div class="container">
-                    <p class="muted credit">Page rendered by <a href="">Verily</a>.</p>
+                    <p class="muted credit">Page rendered by <a href="http://docs.goverily.org/en/latest/">Verily</a>.</p>
                 </div>
             </div>
 
@@ -329,7 +322,7 @@ public int debit(int amount) f ... g
 prettyPrint();
 </script>
 
- <script src="//code.jquery.com/jquery-1.11.3.js" type="text/javascript"></script>
+ 
 <script type="text/javascript">
 function CopyMe() {
 
