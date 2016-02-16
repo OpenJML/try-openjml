@@ -289,7 +289,11 @@ public int debit(int amount) f ... g
        		            <h2>Verification Output</h2>
                       
                       
-       		            <div class="well" data-ng-bind-html="output">  </div>
+       		            <div class="well">   
+
+                        <div align="center"><img ng-src="{{ajaxLoader}}"/></div>
+                        <div data-ng-bind-html="output"> </div>
+                      </div>
                       
                      
        		    </div>

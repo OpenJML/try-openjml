@@ -48,7 +48,8 @@ $scope.esc = function(){
 
     var tmp = $scope.escCheck;
     $scope.escCheck = "Checking... Please wait.";
-
+    $scope.ajaxLoader = '/images/ajaxLoader.gif';
+    $scope.output= $sce.trustAsHtml("<pre> loading Output . . .</pre>");
     $scope.$watch(function(scope){ return scope.program; }, function(){ console.log("digest called");  }, true);
 
     
@@ -78,10 +79,10 @@ $scope.esc = function(){
                     }
 
                 }
-        var output = str;
+        var output2 = str;
 
-
-        $scope.output= $sce.trustAsHtml("<pre>"+ output +"</pre>");
+        $scope.ajaxLoader= '/images/ajaxLater.gif';
+        $scope.output= $sce.trustAsHtml("<pre>"+ output2 +"</pre>");
         $scope.escCheck = "ESC Check";
 
 
@@ -101,8 +102,8 @@ $scope.esc = function(){
 
     var tmp = $scope.racCheck;
     $scope.racCheck = "Checking... Please wait.";
-
-
+    $scope.ajaxLoader = '/images/ajaxLoader.gif';
+    $scope.output= $sce.trustAsHtml("<pre> loading Output . . .</pre>");
         $http({
                 url:'http://ec2-52-24-50-141.us-west-2.compute.amazonaws.com/RuntimeAssertionChecker/run',
                 data: {Source:$scope.program},
@@ -114,6 +115,7 @@ $scope.esc = function(){
 
                 var response = data;
                 $scope.racCheck = tmp;
+                
                 // find the markdown result
                 var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
             
@@ -130,10 +132,10 @@ $scope.esc = function(){
                     }
 
                 }
-                var output = str;
+                var output1 = str;
 
-
-                $scope.output= $sce.trustAsHtml(output);
+                $scope.ajaxLoader= '/images/ajaxLater.gif';
+                $scope.output= $sce.trustAsHtml(output1);
                 
                 $scope.racCheck = "RAC Check";
 
