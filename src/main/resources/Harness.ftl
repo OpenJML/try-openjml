@@ -257,13 +257,8 @@ public int debit(int amount) f ... g
 
 
                               </ul>
-                              <p><h4>For those who don't need a tutorial</h4></p>
-                              <ul class="pager">
-                                <li><a href="/TutMethod.ftl">Fullscreen Editor</a></li>
-
-
-
-                              </ul>
+                             
+                              
                             </nav>
                      </div>
                 </div>
@@ -298,11 +293,15 @@ public int debit(int amount) f ... g
                      
        		    </div>
 
-               <div class="row" align="right">
-               		  <p>
-                   <button class="btn btn-large btn-primary" data-ng-click="rac();" type="button">{{racCheck}}</button>
+               <div>
+                
+               		 <a class="btn btn-large btn-primary" href="/TutMethod.ftl" >Fullscreen Editor</a>
+
+               <div class="btn-group pull-right">
+                   <button class="btn btn-large btn-primary" data-ng-click="rac();" type="button" >{{racCheck}}</button>
                    <button class="btn btn-large" type="button" data-ng-click="esc();">{{escCheck}}</button>
-               		  </p>
+               	</div>	 
+                
                </div>
 
 
