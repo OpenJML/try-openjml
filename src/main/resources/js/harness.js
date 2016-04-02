@@ -56,7 +56,7 @@ $scope.esc = function(){
         
 
         $http({
-            url:'http://ec2-52-24-50-141.us-west-2.compute.amazonaws.com/ExtendedStaticChecker/run',
+            url:'http://openjml.cs.ucf.edu/ExtendedStaticChecker/run',
             data: {Source:$scope.program},
             method: 'POST',
             headers: {'Content-Type': 'application/json'}
@@ -112,7 +112,7 @@ $scope.esc = function(){
 
     
         $http({
-                url:'http://ec2-52-24-50-141.us-west-2.compute.amazonaws.com/RuntimeAssertionChecker/run',
+                url:'http://openjml.cs.ucf.edu/RuntimeAssertionChecker/run',
                 data: {Source:$scope.program},
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'}
