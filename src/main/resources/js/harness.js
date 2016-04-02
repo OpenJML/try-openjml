@@ -45,51 +45,55 @@ public class Test2 {\n \
 
 $scope.esc = function(){
 
-
-    var tmp = $scope.escCheck;
-    $scope.escCheck = "Checking... Please wait.";
-    $scope.ajaxLoader = '/images/ajaxLoader.gif';
-    $scope.output= $sce.trustAsHtml("<pre> loading Output . . .</pre>");
-    $scope.$watch(function(scope){ return scope.program; }, function(){ console.log("digest called");  }, true);
-
     
 
-    $http({
-        url:'http://ec2-52-24-50-141.us-west-2.compute.amazonaws.com/ExtendedStaticChecker/run',
-        data: {Source:$scope.program},
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'}
-    }).
-        success(function(data, status, headers, config) {
-        console.log(data);
+        var tmp = $scope.escCheck;
+        $scope.escCheck = "Checking... Please wait.";
+        $scope.ajaxLoader = '/images/ajaxLoader.gif';
+        $scope.output= $sce.trustAsHtml("<pre> loading Output . . .</pre>");
+        $scope.$watch(function(scope){ return scope.program; }, function(){ console.log("digest called");  }, true);
 
-        var response = data;
-        $scope.escCheck = tmp;
-        // find the markdown result
-        var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
-        var str  = markdown.toHTML(markdownContent).replace(/code>/g, "pre>");
+        
 
-                getIndicesOf("/tmp/", str, false);
-
-
-                for(i=0;i<arrIndex.length;i++){
-                    str = str.slice(0, arrIndex[i]) + str.slice(arrIndex[i]+15);
-                    for(j=i+1;j<arrIndex.length;j++){
-                        arrIndex[j]= arrIndex[j] - 15;
-                    }
-
-                }
-        var output2 = str;
-
-        $scope.ajaxLoader= '/images/ajaxLater.gif';
-        $scope.output= $sce.trustAsHtml("<pre>"+ output2 +"</pre>");
-        $scope.escCheck = "ESC Check";
-
-
+        $http({
+            url:'http://ec2-52-24-50-141.us-west-2.compute.amazonaws.com/ExtendedStaticChecker/run',
+            data: {Source:$scope.program},
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
         }).
-        error(function(data, status, headers, config) {
-        console.log(data);
-        });
+            success(function(data, status, headers, config) {
+            console.log(data);
+
+            var response = data;
+            $scope.escCheck = tmp;
+            // find the markdown result
+            var markdownContent = response.Outputs.filter(function(o){ return o.MimeType==="text/x-web-markdown";})[0].Value;
+            var str  = markdown.toHTML(markdownContent).replace(/code>/g, "pre>");
+
+                    getIndicesOf("/tmp/", str, false);
+
+
+                    for(i=0;i<arrIndex.length;i++){
+                        str = str.slice(0, arrIndex[i]) + str.slice(arrIndex[i]+15);
+                        for(j=i+1;j<arrIndex.length;j++){
+                            arrIndex[j]= arrIndex[j] - 15;
+                        }
+
+                    }
+            output = str;
+
+            $scope.ajaxLoader= '/images/ajaxLater.gif';
+            $scope.output= $sce.trustAsHtml("<pre>"+ output +"</pre>");
+            $scope.escCheck = "ESC Check";
+
+
+            }).
+            error(function(data, status, headers, config) {
+            console.log(data);
+            });
+       
+    
+
 
     };
 
@@ -104,6 +108,9 @@ $scope.esc = function(){
     $scope.racCheck = "Checking... Please wait.";
     $scope.ajaxLoader = '/images/ajaxLoader.gif';
     $scope.output= $sce.trustAsHtml("<pre> loading Output . . .</pre>");
+    $scope.$watch(function(scope){ return scope.program; }, function(){ console.log("digest called");  }, true);
+
+    
         $http({
                 url:'http://ec2-52-24-50-141.us-west-2.compute.amazonaws.com/RuntimeAssertionChecker/run',
                 data: {Source:$scope.program},
@@ -132,10 +139,10 @@ $scope.esc = function(){
                     }
 
                 }
-                var output1 = str;
+                var output = str;
 
                 $scope.ajaxLoader= '/images/ajaxLater.gif';
-                $scope.output= $sce.trustAsHtml(output1);
+                $scope.output= $sce.trustAsHtml("<pre>"+ output +"</pre>");
                 
                 $scope.racCheck = "RAC Check";
 

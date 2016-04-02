@@ -113,6 +113,7 @@
        <script src="/js/harness.js"></script>
        <script src="/js/bootstrap.min.js"></script>
        <script src="/js/markdown.min.js"></script>
+       <script src="/codepress/codepress.js" type="text/javascript"></script>
        <script src="//code.jquery.com/jquery-1.11.3.js" type="text/javascript"></script>
 
 
@@ -272,7 +273,7 @@ public int debit(int amount) f ... g
        		            <h2>Input Program</h2>
 
 
-                <textarea name="editor" id="editor" data-ng-model="program" rows="20" cols="70" style="font-family:monospace;"></textarea>
+                <textarea name="editor" id="editor" data-ng-model="program" rows="20" cols="70" class="codepress java linenumbers-on"></textarea>
 
 
 

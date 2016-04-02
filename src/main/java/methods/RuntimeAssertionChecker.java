@@ -14,18 +14,10 @@ public class RuntimeAssertionChecker{
           RACRunner runner = new RACRunner(Source);
 
           try {
-               return runner.run();
-          } catch (IOException e) {
-               e.printStackTrace();
-          } catch (InterruptedException e) {
-               e.printStackTrace();
-          } catch (InvalidClassfileException e) {
-               e.printStackTrace();
-          }
-
-          return null;
-
-
+             return runner.run();
+         } catch (IOException | InterruptedException | InvalidClassfileException e) {
+             return new CheckerResult(e.getMessage(), false);
+         }
 
      }
 

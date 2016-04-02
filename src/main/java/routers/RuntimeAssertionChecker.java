@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class RuntimeAssertionChecker{
 
      public static final Content run(String Source, CheckerResult result){
+        
          Content response = new JSONContent();
 
          response.setContent(RACRunner.checkerResultToRise4RunFormat(result));
