@@ -21,7 +21,7 @@ Samples = []
 files_to_add.forEach(function(filename){
   var data = fs.readFileSync(filename, 'utf8');
 
-  Samples.push({Name : filename.split('/').reverse()[0], Source : data})
+  Samples.push({Name : filename.split('/').reverse()[0].replace(".java", ""), Source : data})
 })
 
 template['Samples'] = Samples
