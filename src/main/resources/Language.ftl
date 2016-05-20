@@ -1,42 +1,42 @@
 {
-  displayName:    'echo',
-  name:           'echo',
-  mimeTypes:      ['text/x-echo'],
-  fileExtensions: ['.echo'],
+  "displayName":    "java",
+  "name":           "java",
+  "mimeTypes":      ["text/x-java"],
+  "fileExtensions": [".java"],
 
-  lineComments:      '//',
-  blockCommentStart: '/*',
-  blockCommentEnd:   '*/',
+  "lineComments":      "//",
+  "blockCommentStart": "/*",
+  "blockCommentEnd":   "*/",
 
-  keywords: ['hello', 'you'],
+  "keywords": ["public", "class", "static", "int", "void"],
 
-  operators: ['~'],
-
-
-  tokenizer: {
-    root: [
-
-      ['[a-z_$][\\w$]*', { cases: { '@keywords': 'keyword',
-                                   '@default': 'identifier' } }],
+  "operators": ["~", "+", "-"],
 
 
-      { include: '@whitespace' },
+  "tokenizer": {
+    "root": [
+
+      ["[a-z_$][\\w$]*", { "cases": { "@keywords": "keyword",
+                                   "@default": "identifier" } }],
 
 
-      ['[{}()\\[\\]]', '@brackets'],
+      { "include": "@whitespace" },
+
+
+      ["[{}()\\[\\]]", "@brackets"],
    ],
 
-    whitespace: [
-      ['[ \\t\\r\\n]+', 'white'],
-      ['\\/\\*',       'comment', '@comment' ],
-      ['\\/\\/.*$',    'comment'],
+    "whitespace": [
+      ["[ \\t\\r\\n]+", "white"],
+      ["\\/\\*",       "comment", "@comment" ],
+      ["\\/\\/.*$",    "comment"],
     ],
 
-    comment: [
-      ['[^\\/*]+', 'comment' ],
-      ['\\/\\*',    'comment.invalid' ],
-      ["\\*/",    'comment', '@pop'  ],
-      ['[\\/*]',   'comment' ]
+    "comment": [
+      ["[^\\/*]+", "comment" ],
+      ["\\/\\*",    "comment.invalid" ],
+      ["\\*/",    "comment", "@pop"  ],
+      ["[\\/*]",   "comment" ]
     ],
   },
 }
