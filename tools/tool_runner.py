@@ -9,7 +9,7 @@ This script is used for running the checking tools within the Docker virtual mac
  {
       "type"       : "esc"|"rac",  // esc or rac
       "returnCode" : numeric,      // zero means success. Error otherwise.
-      "stdout"     : "",    
+      "stdout"     : "",
       "stderr"     : "",
       "timeout"    : true|false    // if true, it took longer than the specified period
  }
@@ -17,8 +17,8 @@ This script is used for running the checking tools within the Docker virtual mac
 
 Example Usage:
 
-# cat ../src/test/stubs/Test2.java | python tool_runner.py --timeout 10 -esc Test2.java 
-# cat ../src/test/stubs/Test2.java | python tool_runner.py --timeout 10 -rac Test2.java 
+# cat ../src/test/stubs/Test2.java | python tool_runner.py --timeout 10 -esc Test2.java
+# cat ../src/test/stubs/Test2.java | python tool_runner.py --timeout 10 -rac Test2.java
 
 """
 
@@ -73,7 +73,7 @@ base = ""
 if args.docker:
     base = "/"
 
-    
+
 # write file out
 
 source_file = os.path.join(tempfile.mkdtemp(), args.FILE)
@@ -82,7 +82,7 @@ with open(source_file, "w") as out:
     out.write(args.DATA.read())
 
 print("[tool-runner] Wrote temporary source file to: {0}".format(source_file))
-    
+
 # Configuration for platform specific settings
 configuration = {
     'nt' :  {
@@ -108,12 +108,13 @@ process_args = [timeout, "{0}s".format(args.timeout)]
 run_args  = [timeout, "{0}s".format(args.timeout)]
 
 #
-# OpenJML 
+# OpenJML
 #
 if args.esc:
     process_args.append("java")
     process_args.append("-jar")
     process_args.append(os.path.join(base + "tools", "openjml", "openjml.jar"))
+    process_args.append("-code-math=java")
     process_args.append("-esc")
     process_args.append(source_file)
 else:
@@ -131,7 +132,7 @@ else:
 
 # Build up argument list
 return_dict = {"timeout": False}
-    
+
 try:
     process = subprocess.Popen(process_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout,stderr  = process.communicate()
@@ -156,17 +157,17 @@ try:
         return_dict['stderr'] = stderr.decode("utf-8")
 
         return_dict['runArgs'] = run_args
-        
+
         if process.returncode > 1:
             return_dict['timeout'] = True
-    
+
 except:
     print("Exceptional condition")
     return_dict['returnCode'] = -1
     return_dict['stdout']     = ""
     return_dict['stderr']     = traceback.format_exc()
 
-    
+
 
 print("[verify-start]")
 print(json.dumps(return_dict, sort_keys=True, indent=4))
