@@ -8,7 +8,7 @@
   "blockCommentStart": "/*",
   "blockCommentEnd":   "*/",
 
-  "keywords": ["public", "class", "static", "int", "void"],
+  "keywords": ["public", "class", "static", "int", "void", "while", "for", "return", "if", "else", "switch"],
 
   "operators": ["~", "+", "-"],
 
