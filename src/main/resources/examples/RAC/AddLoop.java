@@ -1,4 +1,4 @@
-public class AddLoop{
+public class AddLoop {
      //@ requires y >= 0;
      //@ ensures \result == x + y;
      public static int Add (int x, int y){

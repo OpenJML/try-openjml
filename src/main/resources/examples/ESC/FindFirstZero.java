@@ -1,4 +1,4 @@
-public class FindFirstZero{
+public class FindFirstZero {
      //@ requires true;
      //@ ensures \result == -1 ==> (\forall int i; 0 <= i && i < x.length; x[i] != 0);
      //@ ensures 0 <= \result && \result < x.length ==> x[\result] == 0 && (\forall int i; 0 <= i && i < \result; x[i] != 0);
