@@ -14,7 +14,7 @@ public class FindFirstZero {
            while(x.length - index > 0 && x[index] != 0)
            {
              index = index + 1;
-           }Find
+           }
            if (x.length - index == 0){
              index = -1;
            }
