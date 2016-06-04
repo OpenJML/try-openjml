@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title></title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -273,7 +272,7 @@ public int debit(int amount) f ... g
        		            <h2>Input Program</h2>
 
 
-                <textarea name="editor" id="editor" data-ng-model="program" rows="20" cols="70" class="codepress java linenumbers-on"></textarea>
+                <textarea id="editor" class="codepress java linenumbers-on" data-ng-model="program" rows="20" cols="68" style="font-family:monospace;"></textarea>
 
 
 
