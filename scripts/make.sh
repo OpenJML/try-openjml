@@ -7,5 +7,4 @@ node convert-examples.js \
 ../src/main/resources/examples/ESC/FindFirstZero.java  \
 ../src/main/resources/examples/ESC/Inverse.java  \
 ../src/main/resources/examples/ESC/Smallest.java  \
-
 ../src/main/resources/ExtendedStaticCheckerMetadata.json > ../src/main/resources/ExtendedStaticCheckerMetadata.ftl
