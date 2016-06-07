@@ -2,7 +2,7 @@ public class Smallest {
     //@ requires true;
     //@ ensures \result == -1 ==> a.length == 0;
     //@ ensures \result > -1 ==> (\forall int i; 0 <= i && i < a.length; a[\result] <= a[i]);
-    static public int smallest(int[] a) {
+    static public int Smallest(int[] a) {
         if (a.length == 0) return -1;
 
         int index = 0;
