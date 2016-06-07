@@ -15,7 +15,7 @@
   "Description": "OpenJML is a program verification tool for Java programs that allows you to check the specifications of programs annotated in the Java Modeling Language.",
   "Question": "Does this program do what it is supposed to do?",
   "Url": "http://www.openjml.org",
-  "DisableErrorTable": true,
+  "DisableErrorTable": false,
   "Samples": [
     {
       "Name": "hello",
