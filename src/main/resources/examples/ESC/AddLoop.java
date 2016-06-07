@@ -1,11 +1,11 @@
-public class Add{
+public class AddLoop {
      //@ requires true;
      //@ ensures \result == x + y;
-     public static int Add (int x, int y){
+     public static int AddLoop (int x, int y){
          int sum = x;
          if (y > 0){
          int n = y;
-        
+
          //@ maintaining sum == x + y - n && 0 <= n;
          //@ decreases n;
          while (n > 0)
@@ -16,7 +16,7 @@ public class Add{
          }
          else{
            int n = -y;
-          
+
          //@ maintaining sum == x + y + n && 0 <= n;
          //@ decreases n;
          while (n > 0)
@@ -27,6 +27,6 @@ public class Add{
          }
          }
          return sum;
-       
+
      }
 }

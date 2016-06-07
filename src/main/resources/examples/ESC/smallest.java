@@ -6,7 +6,7 @@ public class Smallest
   static public int smallest(int[] a)
   {
     if (a.length == 0) return -1;
-    
+
     int index = 0;
     int smallest = 0;
     //@ maintaining 0 <= index && index <= a.length;
