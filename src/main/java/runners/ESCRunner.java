@@ -106,7 +106,7 @@ public class ESCRunner extends Runner {
                 plain.put("Value", o.get("stdout") + Constants.VERILY_TAGLINE_TXT);
 
                 md.put("MimeType", "text/x-web-markdown");
-                md.put("Value", "```" + o.get("stdout") + "```" + Constants.VERILY_TAGLINE_MD);
+                md.put("Value", "<pre>" + o.get("stdout") + "</pre>" + Constants.VERILY_TAGLINE_MD);
 
                 responses.add(plain);
                 responses.add(md);
