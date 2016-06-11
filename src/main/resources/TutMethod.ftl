@@ -98,8 +98,8 @@
                      <div class="row">
                       <h2>Input Program</h2>
                         
-                        
-                <textarea name="editor" id="editor" data-ng-model="program" rows="35" cols="187" class="codepress java linenumbers-on"></textarea> 
+           <!--class="codepress java linenumbers-on" -->             
+                <textarea name="editor" id="editor" data-ng-model="program" rows="35" cols="187" ></textarea> 
                       
 
                      

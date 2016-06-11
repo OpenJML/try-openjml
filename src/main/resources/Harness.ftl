@@ -338,8 +338,8 @@ public abstract class Invariant {
                      <div class="row">
        		            <h2>Input Program</h2>
 
-
-                <textarea id="editor" class="codepress java linenumbers-on" data-ng-model="program" rows="20" cols="68" style="font-family:monospace;"></textarea>
+<!--class="codepress java linenumbers-on" -->
+                <textarea id="editor" data-ng-model="program" rows="20" cols="68" style="font-family:monospace;"></textarea>
 
 
 
