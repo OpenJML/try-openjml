@@ -146,48 +146,48 @@
                          <td>
                          <p>The <i>Java Modeling Language (JML)</i> is a behavioral interface specification language which is used to specify the behavior of Java modules. Behavioral interface specification languages give code-level annotations such as pre-/post-conditions, invariants, and assertions to a program that allows the programmer to express various behaviors for program modules.</p>
 
-                         <p>A module is a Java class or interface. Java Modeling Language combines the design by contract approach of Eiffel and the model-based specification approach of the Larch family of interface specification languages, with some elements of the refinement calculus.
+                         <p>A <i>module</i> is a Java class or interface. Java Modeling Language combines the design by contract approach of Eiffel and the model-based specification approach of the Larch family of interface specification languages, with some elements of the refinement calculus.
                          </p>
 
                          <p>
-                          Behaviors of a Java module are specified by adding assertions to Java source code; in particular, one can add preconditions and postconditions to methods and invariants to classes and interfaces. These assertions are added as individual JML comments in your Java file, between /*@  and @*/, or after //@ to the end of a line.
+                          Behaviors of a Java module are specified by adding assertions to Java source code; in particular, one can add preconditions and postconditions to methods and invariants to classes and interfaces. These assertions are added as individual JML comments in your Java file, between /*@  and @*/, or after //@ to the end of a line. <i><u>Note</u> that there cannot be any white-space between the start of the Java comment and the first at-sign (@), as /* @ or // @ is a Java comment that is not processed by JML.</i>
                         </p>
 
-                          <p>Enter your code in the text box, click and run RAC or ESC. For trying the examples given above, copy them into the code runner and click on RAC or ESC to run.</p>
+                          <p>Enter your code in the text box, click and run RAC or ESC. For trying the examples given above, copy them into the code runner and click on RAC Check or ESC Check to run.</p>
 
                          <h3 id="chap1">1 : Writing your first pre-condition</h3>
                          <p>
-                         Preconditions define a contract between a method and its clients; the client must establish the method’s precondition; conversely, the method’s code may assume its precondition. In the given program "<i>requires</i>" is a precondition which assumes variables PrincipalAmt, NumberOfYears, and RateOfIntr should be greater than zero.
+                         Preconditions define assumptions a method may have about the state in which it is called; the client must establish the method’s precondition; conversely, the method’s code may assume its precondition. In the given program "<i>requires</i>" preceeds each precondition; the preconditions assume that variables PrincipalAmt, NumberOfYears, and RateOfIntr are all greater than zero.
                          </p>
 
                        <textarea id="simpleIntr" class="codepress java readonly-on" rows="17" cols="80">
 //simpleIntr.java
-   public class simpleIntr {
-   //@ requires PrincipalAmt > 0;
-   //@ requires NumberOfYears > 0;
-   //@ requires RateOfIntr > 0;
-   //@ ensures \result == (PrincipalAmt * NumberOfYears * RateOfIntr)/100;
-   public static double Calc
-   (double PrincipalAmt, double NumberOfYears, double RateOfIntr)
-   {
-   return (PrincipalAmt * NumberOfYears * RateOfIntr)/100;
-   }
-   public static void main(String args[]){
-       System.out.println("Installment will be...");
-       System.out.println(Calc(1800000.00,3.50,12.75));
-   }
-}
+     public class simpleIntr {
+     //@ requires PrincipalAmt > 0;
+     //@ requires NumberOfYears > 0;
+     //@ requires 0 < RateOfIntr < 1;
+     //@ ensures \result = (PrincipalAmt * NumberOfYears * RateOfIntr)/100;
+     public static double Calc
+     (double PrincipalAmt, double NumberOfYears, double RateOfIntr)
+     {
+     return (PrincipalAmt * NumberOfYears * RateOfIntr)/100;
+     }
+     public static void main(String args[]){
+         System.out.println("Installment will be...");
+         System.out.println(Calc(1800000.00,3.50,12.75));
+     }
+ }
                        </textarea>
 
                         <h3 id="chap2">2 : Writing your first post-condition</h3>
                          <p>
-                          Postconditions define a contract between a method and its clients; the client may assume its postcondition; conversely, the method’s must ensure it’s post-condition. As shown in the example, <i>ensure</i> verifies if the value returned by the method will be equal to the simple interest formula.
+                          Postconditions define guarantees a method gives to its clients; the client may assume its postcondition; conversely, the method must guarantee its post-condition in all possible executions. As shown in the example, <i>ensure</i> verifies if the value returned by the method will be equal to the simple interest formula.
                          </p>
                          <h3 id="chap3">3 : Working of JML annotations</h3>
                          <p>
-                          Each character passed as an argument to the function <i>changeCase(char c)</i> is verified by the conditions given in <i>requires</i> clause and the result which is returned is should be acceptable by the <i>ensure</i> conditions mentioned before the function.
+                          Each character passed as an argument to the function <i>changeCase(char c)</i> below is checked to satisfy the conditions given in the <i>requires</i> clause and the result which is returned is should be acceptable by the <i>ensure</i> conditions mentioned before the function. The keyword <i>also</i> signifies that a specification following the keyword is in addition to the specification prior to it.
 
-                          Go ahead and use the code given below to play around, make some changes and see how it affects the output.
+                          
                          </p>
 <textarea id="changeCase" class="codepress java readonly-on" rows="30" cols="80">
 //changeCaseExample.java
@@ -227,85 +227,95 @@ public class changeCaseExample {
      }
 </textarea>
                       <h3 id="chap4">4 : Model and Ghost fields</h3>
+                      <p>
+                          The <i>model</i> modifier has two meanings. The first significance of a feature declared with the <i>model</i> is that it is present for specification purposes only. For example, a <i>model</i> field is only used for JML specifications and cannot be utilized in the Java code present outside the specifications. In a similar manner, a method with the <i>model</i> modifier is a method which is utilized only in annotations and not in Java code. The other significance of <i>model</i> depends on the type of feature that is being declared.
+                          </p>
+                          <textarea id="Model" class="codepress java readonly-on" rows="7" cols="80">
+//Model.java
+
+//@ public model float b;
+
+//@ public model boolean empty;
+protected int size = 0; //@ in empty;
+//@ protected represents empty = (size == 0);
+                          </textarea>
                          <p>
-                          The '<i>Model</i>' modifier introduces a <i>specification-only</i> feature. For fields, it means that a field should only be represented by a concrete field. Ghost and model are mutually exclusive modifiers. Ghost fields will be covered in the later part of this section. There some points to be noted about model fields, are given below,
+                          The '<i>Model</i>' modifier introduces a <i>specification-only</i> feature.For fields, it means that the field is only visible on the level of specification. In the above example, the <i>represents</i> clause defines, how the value of a model field is related to the implementation. The ghost and model modifiers are mutually exclusive . Ghost fields will be covered in the later part of this section. There are some points to be noted about model fields, which are given below,
                          <ul>
-                         <li>A model field should not be declared to be final. If at all a final model field is required in the program then one should always use a final ghost field instead.</li>
-                         <li>For an interface, a model is always declared to be static.</li>
+                         <li>A model field should not be declared to be final. If you think that a final model field is required in the program, then you should instead use a final ghost field instead.</li>
+                         <li>For an interface, a model field is static by default. Use 'instance' to declare a non-static field in an interface.</li>
                          </ul>
                          </p>
-                         <p>
-                          The '<i>Ghost</i>' modifier introduces a <i>specification-only</i> field that is maintained by particular set statements. Ghost and model are mutually exclusive modifiers.When a ghost field is declared in an interface, it is not final by default. If you want the field to be default it needs to be mentioned explicitly.
-                         </p>
-                         <h3 id="chap5">5 : Modifiers and Assignable clauses</h3>
-                         <p>
-                         Modifiers in JML are similar to that in Java; it is just that they are recognized as keywords in annotation comments. The ordering of modifiers goes as follows:
-                         </p>
-                         <ul>
-                         <li>java-annotations</li>
-                         <li>public private protected spec_public spec_protected</li>
-                         <li>abstract static</li>
-                         <li>model ghost pure</li>
-                         <li>final</li>
-                         <li>synchronized</li>
-                         <li>instance</li>
-                         <li>transient</li>
-                         <li>volatile</li>
-                         <li>native strictfp</li>
-                         <li>monitored uninitialized</li>
-                         <li>helper</li>
-                         <li>spec_java_math spec_safe_math spec_bigint_math</li>
-                         <li>code_java_math code_safe_math code_bigint_math</li>
-                         <li>non_null nullable nullable_by_default</li>
-                         <li>code extract</li>
-                         <li>peer rep readonly</li>
-                         </ul>
-                        <p>
-                         In the example given below, the specification provided for the variable <i>array</i> in will be satisfied as a postcondition unless the function C is called. Now after function C is called, the postcondition would be satisfied. For conditions as such, assignable clauses like <i>modifies</i> are used.
-                         </p>
-                        <textarea id="A" class="codepress java readonly-on" rows="15" cols="80">
-//A.java
-public class A{
+                          <p>
+                          Similar to a model field, a ghost field cannot be used in the Java code that is outside of JML specifications. Unlike a model field, the value of a ghost field is determined by its initialization or the value given to it in the most recent set-statement. The 'ghost' modifier introduces a <i>specification-only</i> field that is maintained by particular set statements.</p>
+                          <textarea id="Ghost" class="codepress java readonly-on" rows="10" cols="80">
+//Ghost.java
+/* By initialization*/
+//@ ghost int i = 0;
+//@ ghost int zero = 0, j, k = i+3;
+
+/* By set-statement*/
+//@ ghost boolean empty = true;
+//@ set empty = (size == 0);
+                          </textarea>
+
+                          <p>In the example given below, the specification provided for the variable \textit{array} will not be satisfied as a postcondition unless the function C is called. Now after function C is called, the postcondition would be satisfied. In this case, <i>assignable</i> clause is used.</p>
+
+                          <p>Go ahead and use the code given and try to make it work. <i>Hint: psvm(String args[])</i></p>
+
+                          <textarea id="Arrays" class="codepress java readonly-on" rows="15" cols="80">
+//Arrays.java
+public class Arrays{
      int array[];     
-     //ensures array.length >=5;
+     //@ ensures array.length >=5;
+     //@ assignable array[];
      public void B(){ 
          array = new int[7]; 
          C();
      }
-     //ensures true;
+     //@ ensures true;
      public void C(){ 
          array = new int[3];
      }
+     
 }
-                        </textarea>
+                          </textarea>
+                          
                         <h3 id="chap6">6 : Invariants</h3>
-                        <p>Invariants are the properties that have to operate in all visible states. The understanding of visible states is of utmost importance when dealing with invariants and constraints. A state is <i>visible state</i> to object <i>o</i>, if it develops in the following stages of code's execution:
+
+                        <p>Invariants are the properties that must hold  in all visible states. The understanding of visible states is important when dealing with invariants and constraints. A state is <i>visible state</i> for an object <i>o</i>, if it occurs in one of the following stages of code's execution:
                         </p>
                         <ul>
-                          <li>at the beginning or end of a non-helper finalizer invocation, that is finalizing o,</li>
-                          <li>at the start of a non-helper non-static non-finalizer method invocation with o as the receiver.</li>
-                          <li>at the end of a non-helper non-static non-finalizer method invocation with o as the receiver</li>
-                          <li>at the beginning or end of a non-helper static method invocation for a method in o's class or some superclass of o's class, or</li>
-                          <li>when no constructor, destructor, non-static method invocation with o as the receiver,</li>
-                          <li>or static method invocation for a method in o's class or some superclass of o's class is in progress.</li>
-                        </ul>
-                        <p>For example, The invariant in the given example has a <i>default (package)</i> visibility and in each state that is a visible state for an object of type <i>Invariant</i>, the object's field <i>bool</i> is not null and the array it refers to has exactly ten elements. No postcondition is required in this example, as the invariant is an implicit postcondition for the constructor.</p>
+                        <li> at the start of a non-helper non-static non-finalizer method invocation with <i>o</i> as the receiver.</li>
+                        <li> at the end of a non-helper non-static non-finalizer method invocation with <i>o</i> as the receiver,</li>
+                        <li> at the beginning or end of a non-helper static method invocation for a method in <i>o</i>'s class or some superclass of <i>o</i>'s class, or</li>
+                        <li> at the end of a non-helper constructor invocation that intializes <i>o</i></li>
+                        <li> when no constructor, destructor, non-static method invocation with <i>o</i> as the receiver, or static method invocation for a method in <i>o</i>'s class or some superclass of <i>o</i>'s class is in progress,</li>
+                        <li> at the beginning of a non-helper finalizer invocation, that is finalizing <i>o</i>.</li>
+                       
+
+                        <p>
+                          For example, the invariant in the example below has a <i>default (package)</i> visibility and in each state that is a visible state for an object of type <i>Invariant</i>, the object's field <i>bool</i> is not null and the array it refers to has exactly ten elements. No postcondition is required in this example, as the invariant is an implicit postcondition for the constructor.
+                        </p>
                        <textarea id="Invariant" class="codepress java readonly-on" rows="10" cols="80">
 //Invariant.java
 package org.jmlspecs.samples.jmlrefman; 
 public abstract class Invariant {
     boolean[] bool; 
     //@ invariant bool != null && bool.length == 10;
+    
     //@ assignable bool;
     Invariant() {
-        bool = new boolean[6];
+        bool = new boolean[10];
     }
 }
                         </textarea>
+
+
                        </tr>
 
                        <tr>
-                         <td> </td>
+                         <td><p><h5>For more information on any particular topic check <a href="http://www.eecs.ucf.edu/~leavens/JML/jmlrefman/jmlrefman_toc.html" target='_blank'>JML reference manual</a>.</h5></p></td>
 
                        </tr>
                      </table>
@@ -381,6 +391,9 @@ public abstract class Invariant {
            </div>
 
            <div id="push"></div>
+       </div>
+       <div align="center" >
+       <p><h4>Help us improve TryOpenJML tutorial by filling the survey <a href="http://goo.gl/forms/zk3f4vIDCUvuTV1s1" target='_blank'>here</a>.</h4></p>
        </div>
        <div id="footer">
                 <div class="container">
