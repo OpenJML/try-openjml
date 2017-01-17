@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 # ESC examples
 node convert-examples.js \
