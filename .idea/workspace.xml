@@ -2,12 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2b8d046e-ab0d-4fe3-aa51-e6018668e058" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tools/openjml.tar.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tools/openjml/openjml-20140520-REV3279.zip" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/openjml/jmlruntime.jar" afterPath="$PROJECT_DIR$/tools/openjml/jmlruntime.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/openjml/jmlspecs.jar" afterPath="$PROJECT_DIR$/tools/openjml/jmlspecs.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/openjml/openjml.jar" afterPath="$PROJECT_DIR$/tools/openjml/openjml.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="try-openjml.iws" />
@@ -1197,7 +1191,7 @@
       <workItem from="1431705795825" duration="6152000" />
       <workItem from="1484590207407" duration="93000" />
       <workItem from="1484590323089" duration="671000" />
-      <workItem from="1484627950330" duration="1503000" />
+      <workItem from="1484627950330" duration="1530000" />
     </task>
     <task id="LOCAL-00001" summary="Added shebang; removed unnecessary markdown formatting.">
       <created>1484628865255</created>
@@ -1206,11 +1200,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484628865255</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="updated openjml">
+      <created>1484629559946</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1484629559946</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36170000" />
+    <option name="totallyTimeSpent" value="36197000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1680" height="1023" extended-state="6" />
@@ -1290,7 +1291,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added shebang; removed unnecessary markdown formatting." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added shebang; removed unnecessary markdown formatting." />
+    <MESSAGE value="updated openjml" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated openjml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
