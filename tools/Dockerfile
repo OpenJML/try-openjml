@@ -1,7 +1,8 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER John L. Singleton <jls@cs.ucf.edu>
 # base setup stuff
-RUN apt-get update && apt-get install -y openjdk-8-jdk build-essential
+RUN echo "Acquire::http::Proxy \"http://florence.eecs.ucf.edu:3142\";" > /etc/apt/apt.conf.d/02proxy
+RUN apt-get update && apt-get install -y openjdk-8-jdk build-essential python
 # create the needed directories
 RUN mkdir /tools/
 RUN mkdir /build/
@@ -12,7 +13,7 @@ RUN cd /build/z3-z3-4.3.2/ && ./configure --prefix=/tools/z3/ && cd build && mak
 # install OpenJML
 COPY openjml-0.8.6-20161230.tar.gz /build/
 RUN mkdir /build/openjml
-RUN tar -C /build/openjml -zxvf /build/openjml.tar.gz
+RUN tar -C /build/openjml -zxvf /build/openjml-0.8.6-20161230.tar.gz
 RUN mv /build/openjml /tools/
 # Copy over the openjml.provers file needed to execute these programs
 COPY openjml.properties.docker /root/openjml.properties
