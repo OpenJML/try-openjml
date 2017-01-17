@@ -64,17 +64,17 @@ public class ESCRunner extends Runner {
             // we coulnd't finish in time
             if(((Boolean)o.get("timeout"))){
                 JSONObject plain = new JSONObject();
-//                JSONObject md    = new JSONObject();
+                JSONObject md    = new JSONObject();
 
-                plain.put("MimeType", "text/plain");
-                plain.put("Value", "OpenJML could not verify your program before the timeout elapsed. Please try again (or write a smaller program)." + Constants.VERILY_TAGLINE_TXT);
+//                plain.put("MimeType", "text/plain");
+//                plain.put("Value", "OpenJML could not verify your program before the timeout elapsed. Please try again (or write a smaller program)." + Constants.VERILY_TAGLINE_TXT);
 
-//                md.put("MimeType", "text/x-web-markdown");
-//                md.put("Value", "**OpenJML could not verify your program before the timeout elapsed. Please try again (or write a smaller program).**" + Constants.VERILY_TAGLINE_MD);
+                md.put("MimeType", "text/x-web-markdown");
+                md.put("Value", "**OpenJML could not verify your program before the timeout elapsed. Please try again (or write a smaller program).**" + Constants.VERILY_TAGLINE_MD);
 
 
-                responses.add(plain);
-//                responses.add(md);
+//                responses.add(plain);
+                responses.add(md);
 
                 response.put("Outputs", responses);
 
@@ -82,34 +82,34 @@ public class ESCRunner extends Runner {
             // BEST case scenario. Return code is zero and there is no output
             else if(((Long)o.get("returnCode"))==0 && ((String)o.get("stdout")).length()==0){
 
-                JSONObject plain = new JSONObject();
-                //JSONObject md    = new JSONObject();
+//                JSONObject plain = new JSONObject();
+                JSONObject md    = new JSONObject();
 
-                plain.put("MimeType", "text/plain");
-                plain.put("Value", "Your program appears to satisfy its specifications!" + Constants.VERILY_TAGLINE_TXT);
+//                plain.put("MimeType", "text/plain");
+//                plain.put("Value", "Your program appears to satisfy its specifications!" + Constants.VERILY_TAGLINE_TXT);
 
-//                md.put("MimeType", "text/x-web-markdown");
-//                md.put("Value", "**Your program appears to satisfy its specifications!**" + Constants.VERILY_TAGLINE_MD);
+                md.put("MimeType", "text/x-web-markdown");
+                md.put("Value", "**Your program appears to satisfy its specifications!**" + Constants.VERILY_TAGLINE_MD);
 
-                responses.add(plain);
-//                responses.add(md);
+//                responses.add(plain);
+                responses.add(md);
 
                 response.put("Outputs", responses);
             }
 
             // next case, return code is zero, but there is output
             else {
-                JSONObject plain = new JSONObject();
-//                JSONObject md    = new JSONObject();
+//                JSONObject plain = new JSONObject();
+                JSONObject md    = new JSONObject();
+//
+//                plain.put("MimeType", "text/plain");
+//                plain.put("Value", o.get("stdout") + Constants.VERILY_TAGLINE_TXT);
 
-                plain.put("MimeType", "text/plain");
-                plain.put("Value", o.get("stdout") + Constants.VERILY_TAGLINE_TXT);
+                md.put("MimeType", "text/x-web-markdown");
+                md.put("Value", "<pre>" + o.get("stdout") + "</pre>" + Constants.VERILY_TAGLINE_MD);
 
-//                md.put("MimeType", "text/x-web-markdown");
-//                md.put("Value", "<pre>" + o.get("stdout") + "</pre>" + Constants.VERILY_TAGLINE_MD);
-
-                responses.add(plain);
-//                responses.add(md);
+//                responses.add(plain);
+                responses.add(md);
 
                 response.put("Outputs", responses);
 
@@ -121,18 +121,18 @@ public class ESCRunner extends Runner {
 
 
             o.put("Version", Constants.version);
-            JSONObject plain = new JSONObject();
-//            JSONObject md    = new JSONObject();
+//            JSONObject plain = new JSONObject();
+            JSONObject md    = new JSONObject();
 
-            plain.put("MimeType", "text/plain");
-            plain.put("Value", "An error occurred while trying to verify your program (or there's a bug in OpenJML). Please send the program you were trying to verify to jls@cs.ucf.edu." + Constants.VERILY_TAGLINE_TXT);
+//            plain.put("MimeType", "text/plain");
+//            plain.put("Value", "An error occurred while trying to verify your program (or there's a bug in OpenJML). Please send the program you were trying to verify to jls@cs.ucf.edu." + Constants.VERILY_TAGLINE_TXT);
 
-//            md.put("MimeType", "text/x-web-markdown");
-//            md.put("Value", "**An error occurred while trying to verify your program (or there's a bug in OpenJML). Please send the program you were trying to verify to jls@cs.ucf.edu.**" + Constants.VERILY_TAGLINE_MD);
+            md.put("MimeType", "text/x-web-markdown");
+            md.put("Value", "**An error occurred while trying to verify your program (or there's a bug in OpenJML). Please send the program you were trying to verify to jls@cs.ucf.edu.**" + Constants.VERILY_TAGLINE_MD);
 
 
-            responses.add(plain);
-//            responses.add(md);
+//            responses.add(plain);
+            responses.add(md);
 
             o.put("Outputs", responses);
 
