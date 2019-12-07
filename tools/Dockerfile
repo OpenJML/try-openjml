@@ -1,7 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER John L. Singleton <jls@cs.ucf.edu>
 # base setup stuff
-RUN echo "Acquire::http::Proxy \"http://florence.eecs.ucf.edu:3142\";" > /etc/apt/apt.conf.d/02proxy
 RUN apt-get update && apt-get install -y openjdk-8-jdk build-essential python
 # create the needed directories
 RUN mkdir /tools/
